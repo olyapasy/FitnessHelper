@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#384B5F"
+    tools:context=".Activity.SportActivity">
+
+
+    <ImageView
+        android:id="@+id/backgroundCalendar2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/circlebackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/calenderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundCalendar2"
+        app:layout_constraintEnd_toStartOf="@+id/backgroundCalendar2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/backgroundCalendar2"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundCalendar2"
+        app:srcCompat="@drawable/ic_today_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/rationTitleText"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:text="Sport"
+        android:textColor="#ffff"
+        android:textSize="32sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <TextView
+        android:id="@+id/totalTitle"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="303dp"
+        android:layout_height="wrap_content"
+        android:text="Total amount of kcal for today:"
+        android:textColor="#ffff"
+        android:textSize="21sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.679"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.561" />
+
+    <TextView
+        android:id="@+id/totalCounter"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="9dp"
+        android:layout_height="39dp"
+        android:textColor="#ffff"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <EditText
+        android:id="@+id/runningKm"
+        android:layout_width="55dp"
+        android:layout_height="30dp"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/km"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551" />
+
+    <EditText
+        android:id="@+id/workoutMin"
+        android:layout_width="55dp"
+        android:layout_height="23dp"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.784" />
+
+    <EditText
+        android:id="@+id/runningMin"
+        android:layout_width="55dp"
+        android:layout_height="30dp"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.403" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.628">
+
+        <CheckBox
+            android:id="@+id/runningCheckBox"
+            android:layout_width="98dp"
+            android:layout_height="30dp"
+            android:background="@android:color/white"
+            android:text="Running"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="119dp" />
+
+        <CheckBox
+            android:id="@+id/workoutCheckBox"
+            android:layout_width="99dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/white"
+            android:text="Workout"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="km"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="66dp"
+        android:layout_height="36dp"
+        android:background="@android:color/transparent"
+        android:text="Back"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/breakfastTitleText"
+        app:layout_constraintEnd_toStartOf="@+id/rationTitleText"
+        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.039" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/km"
+        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.613">
+
+        <TextView
+            android:id="@+id/minutes1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="minutes"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="299dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+        <TextView
+            android:id="@+id/minutes2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:text="minutes"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/minutes1"
+            app:layout_constraintEnd_toStartOf="@+id/km"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/runningCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+            app:layout_constraintVertical_bias="0.513" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

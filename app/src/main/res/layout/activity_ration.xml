@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#384B5F"
+    tools:context=".Activity.RationActivity">
+
+
+    <TextView
+        android:id="@+id/rationTitleText"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:text="Ration"
+        android:textColor="#ffff"
+        android:textSize="32sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <TextView
+        android:id="@+id/totalTitle"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="303dp"
+        android:layout_height="wrap_content"
+        android:text="Total amount of kcal for today:"
+        android:textColor="#ffff"
+        android:textSize="21sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.565" />
+
+    <TextView
+        android:id="@+id/totalCounter"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="9dp"
+        android:layout_height="39dp"
+        android:textColor="#ffff"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <TextView
+        android:id="@+id/breakfastTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breakfast"
+        android:textColor="#ffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.125" />
+
+    <TextView
+        android:id="@+id/breakfastText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <TextView
+        android:id="@+id/dinnerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.216" />
+
+    <TextView
+        android:id="@+id/supperText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.339" />
+
+    <TextView
+        android:id="@+id/dinnerTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Dinner"
+        android:textColor="#ffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.235" />
+
+    <TextView
+        android:id="@+id/supperTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:text="Supper"
+        android:textColor="#ffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.335" />
+
+    <LinearLayout
+        android:layout_width="27dp"
+        android:layout_height="130dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintStart_toEndOf="@+id/breakfastText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.293">
+
+        <TextView
+            android:id="@+id/kcal1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="kcal"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/kcal2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="kcal"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/kcal3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="kcal"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <Button
+    android:id="@+id/backButton"
+    android:layout_width="66dp"
+    android:layout_height="36dp"
+    android:background="@android:color/transparent"
+    android:text="Back"
+    android:textSize="12sp"
+    app:layout_constraintBottom_toTopOf="@+id/breakfastTitleText"
+    app:layout_constraintEnd_toStartOf="@+id/rationTitleText"
+    app:layout_constraintHorizontal_bias="0.202"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.039" />
+
+    <ImageView
+        android:id="@+id/backgroundCalendar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/circlebackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <ImageView
+        android:id="@+id/backgroundAddDish"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
+        app:layout_constraintVertical_bias="0.903"
+        app:srcCompat="@drawable/circlebackrationmain" />
+
+    <ImageButton
+        android:id="@+id/addDishButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toEndOf="@+id/addMeal"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
+        app:layout_constraintVertical_bias="0.903"
+        app:srcCompat="@drawable/ic_restaurant_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/calenderButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/backgroundAddDish"
+        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
+        app:layout_constraintVertical_bias="0.881"
+        app:srcCompat="@drawable/ic_today_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/addMeal"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/backgroundAddDish"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
+        app:layout_constraintTop_toBottomOf="@+id/totalCounter"
+        app:layout_constraintVertical_bias="0.777"
+        app:srcCompat="@drawable/ic_add_circle_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+</android.support.constraint.ConstraintLayout>
