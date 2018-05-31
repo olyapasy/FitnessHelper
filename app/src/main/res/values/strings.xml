@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FitnessHelper</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_dish_meal">DishMealActivity</string>
+    <string-array name="Types">
+        <item>Simple</item>
+        <item>Complex</item>
+    </string-array>
+    <string-array name="Types2">
+        <item>Complex</item>
+        <item>Simple</item>
+    </string-array>
 </resources>
