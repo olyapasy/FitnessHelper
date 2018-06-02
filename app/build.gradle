@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.olyapasy.fitnesshelper"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -28,5 +28,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:cardview-v7:27.1.1'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.4'
+    api 'pl.droidsonroids.gif:android-gif-drawable:1.2.4'
+    //Additional
+    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
 }
