@@ -10,32 +10,16 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/rationTitleText2"
-        style="@android:style/Widget.DeviceDefault.Light.TextView"
-        android:layout_width="194dp"
-        android:layout_height="51dp"
-        android:text="Add new dish"
-        android:textColor="#ffff"
-        android:textSize="32sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.034" />
-
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="177dp"
+        android:layout_marginBottom="256dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
         app:layout_constraintHorizontal_bias="0.262"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rationTitleText2"
-        app:layout_constraintVertical_bias="0.155">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -43,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -52,34 +36,34 @@
             android:layout_marginTop="20dp"
             android:text="Type"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="130dp"
-            android:layout_height="47dp"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
             android:layout_marginTop="20dp"
             android:text="Amount of kcal in 100 gramms"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="23sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="188dp"
-        android:layout_height="139dp"
+        android:layout_width="198dp"
+        android:layout_height="175dp"
+        android:layout_marginBottom="264dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/rationTitleText2"
-        app:layout_constraintVertical_bias="0.154">
+        app:layout_constraintStart_toEndOf="@+id/linearLayout4">
 
         <EditText
             android:id="@+id/dishNameEdit"
-            android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_width="200dp"
+            android:layout_height="41dp"
+            android:hint="DishName"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/totalTitle"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
@@ -91,15 +75,15 @@
         <Spinner
             android:id="@+id/spinnerType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="41dp"
             android:layout_marginTop="20dp" />
 
         <EditText
             android:id="@+id/kcalAmountEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/totalTitle"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
             app:layout_constraintHorizontal_bias="0.0"

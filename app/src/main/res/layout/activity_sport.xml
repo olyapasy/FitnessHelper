@@ -82,7 +82,7 @@
         android:id="@+id/runningKm"
         android:layout_width="55dp"
         android:layout_height="30dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/totalTitle"
         app:layout_constraintEnd_toStartOf="@+id/km"
         app:layout_constraintHorizontal_bias="1.0"
