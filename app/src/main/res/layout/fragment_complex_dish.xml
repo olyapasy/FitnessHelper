@@ -14,13 +14,12 @@
         android:id="@+id/linearLayout4"
         android:layout_width="148dp"
         android:layout_height="143dp"
+        android:layout_marginTop="72dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -53,13 +52,12 @@
         android:id="@+id/linearLayout3"
         android:layout_width="181dp"
         android:layout_height="109dp"
+        android:layout_marginTop="72dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/linearLayout4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503">
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/dishNameEditComplex"
@@ -93,69 +91,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         app:layout_constraintVertical_bias="0.786" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="376dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="108dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/backgroundAddDish"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="200dp"
-            android:layout_height="38dp"
-            android:layout_weight="1"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="224dp" />
-
-        <EditText
-            android:id="@+id/amountKg"
-            android:layout_width="49dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:inputType="textCapWords"
-            android:textSize="20sp"
-            tools:layout_editor_absoluteX="216dp"
-            tools:layout_editor_absoluteY="224dp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="kg"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/amountKg"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.628" />
-
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="44dp"
-            android:layout_height="42dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="@drawable/add"
-            tools:layout_editor_absoluteX="279dp"
-            tools:layout_editor_absoluteY="224dp" />
-
-        <ImageButton
-            android:id="@+id/imageButton5"
-            android:layout_width="40dp"
-            android:layout_height="43dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="@drawable/delete"
-            tools:layout_editor_absoluteX="328dp"
-            tools:layout_editor_absoluteY="224dp" />
-    </LinearLayout>
-
     <ImageButton
         android:id="@+id/doneAddDishButton"
         android:layout_width="64dp"
@@ -164,10 +99,10 @@
         android:src="@drawable/ic_done_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButton4"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.784" />
+        app:layout_constraintVertical_bias="0.761" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -185,12 +120,22 @@
         android:id="@+id/imageButton4"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="44dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_cancel_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toEndOf="@+id/backgroundAddDish" />
+
+    <ListView
+        android:id="@+id/dishesListView"
+        android:layout_width="368dp"
+        android:layout_height="62dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.21" />
 
 </android.support.constraint.ConstraintLayout>

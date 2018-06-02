@@ -1,22 +1,28 @@
 package com.olyapasy.fitnesshelper.Fragments;
 
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.olyapasy.fitnesshelper.Activity.DishMealActivity;
 import com.olyapasy.fitnesshelper.R;
+
+import java.util.ArrayList;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +30,8 @@ import com.olyapasy.fitnesshelper.R;
 public class DishFragment extends Fragment {
     ComplexDishFragment complexDishFragment;
     private EditText name;
+    private EditText kcal;
+    ArrayList<String> firstList = new ArrayList<String>();
 
 
 
@@ -37,17 +45,17 @@ public class DishFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_dish, container, false);
 
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ImageButton addDish = (ImageButton) view.findViewById(R.id.doneAddDishButton);
+        final EditText inputDishName = (EditText) view.findViewById(R.id.dishNameEdit);
+        final EditText inputAmountOfKcal = (EditText) view.findViewById(R.id.kcalAmountEdit);
 
 
-//        EditText inputDishName = (EditText) rootView.findViewById(R.id.dishNameEdit);
-//        EditText inputAmountOfKcal = (EditText) rootView.findViewById(R.id.kcalAmountEdit);
-//
-//        String dishName = inputDishName.getText().toString();
-//        String amountKcal = inputAmountOfKcal.getText().toString();
-//        inputDishName.setText(dishName);
-//        inputAmountOfKcal.setText(amountKcal);
-
-        final Spinner typeSpinner = (Spinner) rootView.findViewById(R.id.spinnerType);
+        final Spinner typeSpinner = (Spinner) view.findViewById(R.id.spinnerType);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_expandable_list_item_1,getResources().getStringArray(R.array.Types));
@@ -70,15 +78,35 @@ public class DishFragment extends Fragment {
             }
         });
 
+        addDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dishName = inputDishName.getText().toString();
+                String amountKcal = inputAmountOfKcal.getText().toString();
+                inputDishName.setText(dishName);
+                inputAmountOfKcal.setText(amountKcal);
+                firstList.add(dishName);
+                firstList.add(amountKcal);
+                Toast toast = Toast.makeText(getContext(),firstList.get(0) +" "+ firstList.get(1),Toast.LENGTH_LONG);
+                toast.show();
 
-        return rootView;
-    }
+//                Bundle bundle = new Bundle();
+//                intent.putExtra("name",dishName);
+//                intent.putExtra("kcal", amountKcal);
+//
+//                startActivity(intent);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        name = (EditText) view.findViewById(R.id.dishNameEdit);
-        String dishName = name.getText().toString();
-        name.setText(dishName);
+
+//                Intent intent = new Intent(getContext(),DishMealActivity.class);
+//                intent.putExtra("name",dishName);
+//                intent.putExtra("kcal",amountKcal);
+//                startActivity(intent);
+
+            }
+
+
+        });
+
 
     }
 
@@ -86,4 +114,8 @@ public class DishFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
+
+//    public void setMenuFragment(ComplexDishFragment complexDishFragment) {
+//        this.complexDishFragment = complexDishFragment;
+//    }
 }
