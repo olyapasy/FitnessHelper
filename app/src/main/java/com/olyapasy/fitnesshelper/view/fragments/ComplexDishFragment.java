@@ -1,4 +1,4 @@
-package com.olyapasy.fitnesshelper.Fragments;
+package com.olyapasy.fitnesshelper.view.fragments;
 
 
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.olyapasy.fitnesshelper.DishAdapter;
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
+import com.olyapasy.fitnesshelper.view.adapter.DishAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,19 +71,6 @@ public class ComplexDishFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.dishesListView);
         final DishAdapter dishAdapter = new DishAdapter(dishArrayList,getContext());
         listView.setAdapter(dishAdapter);
-       // listView = (ListView) rootView.findViewById(R.id.componentSpinner);
-
-//        ArrayList<String> mData = new ArrayList<>();
-//        mData.add("Test1");
-//        mData.add("Test2");
-//        mData.add("Test3");
-//        mData.add("Test4");
-//        ArrayList<String> mSpinner = new ArrayList<>();
-//        mData.add("1");
-//        mData.add("3");
-//        mData.add("2");
-
-
 
         return rootView;
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#384B5F"
-    tools:context=".Activity.DishMealActivity">
+    tools:context=".view.activity.DishMealActivity">
 
     <TextView
         android:id="@+id/rationTitleText3"
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/output"
-        android:name="com.olyapasy.fitnesshelper.Fragments.DishFragment"
+        android:name="com.olyapasy.fitnesshelper.view.fragments.DishFragment"
         android:layout_width="388dp"
         android:layout_height="465dp"
         app:layout_constraintBottom_toBottomOf="parent"

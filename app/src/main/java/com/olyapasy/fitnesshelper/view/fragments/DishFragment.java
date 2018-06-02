@@ -1,7 +1,6 @@
-package com.olyapasy.fitnesshelper.Fragments;
+package com.olyapasy.fitnesshelper.view.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,12 +16,9 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.olyapasy.fitnesshelper.Activity.DishMealActivity;
 import com.olyapasy.fitnesshelper.R;
 
 import java.util.ArrayList;
-
-import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * A simple {@link Fragment} subclass.

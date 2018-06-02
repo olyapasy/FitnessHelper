@@ -1,8 +1,6 @@
-package com.olyapasy.fitnesshelper;
+package com.olyapasy.fitnesshelper.view.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,10 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
-import com.olyapasy.fitnesshelper.entity.SimpleDish;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DishAdapter extends BaseAdapter {
     ArrayList<AbstractDish> dishes;
@@ -31,6 +30,15 @@ public class DishAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     @Override
     public int getCount() {
@@ -44,7 +52,7 @@ public class DishAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @Override
@@ -61,11 +69,8 @@ public class DishAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
         Spinner spinner = (Spinner) convertView.findViewById(R.id.componentSpinner);
-        for(AbstractDish aDish : dishes){
-            names.add(aDish.getName());
-        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_expandable_list_item_1,names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_expandable_list_item_1, getNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -95,4 +100,14 @@ public class DishAdapter extends BaseAdapter {
     private class ViewHolder{
         protected EditText editText;
     }
+
+    private List<String> getNames() {
+        List<String> names = new ArrayList<>();
+        for(AbstractDish aDish : dishes){
+            names.add(aDish.getName());
+        }
+
+        return names;
+    }
+
 }
