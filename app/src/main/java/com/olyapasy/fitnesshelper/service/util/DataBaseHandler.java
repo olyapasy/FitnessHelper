@@ -26,7 +26,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         try {
             is = context.getResources().openRawResource(R.raw.create_db);
             String createScript = IOUtils.toString(is, "utf-8");
-            String[] scripts = createScript.split(";");
+            String[] scripts = createScript.split(";", 7);
 
             for (String script : scripts) {
                 db.execSQL(script);
@@ -40,7 +40,22 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        InputStream is = null;
+        try {
+            is = context.getResources().openRawResource(R.raw.drop_db);
+            String createScript = IOUtils.toString(is, "utf-8");
+            String[] scripts = createScript.split(";");
 
+            for (String script : scripts) {
+                db.execSQL(script);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+
+        onCreate(db);
     }
 }
 

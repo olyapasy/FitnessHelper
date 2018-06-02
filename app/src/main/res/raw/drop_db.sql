@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS ration;
+
+DROP TABLE IF EXISTS dish;
+
+DROP TABLE IF EXISTS sport;
+
+DROP TABLE IF EXISTS dish_type;
+
+DROP TABLE IF EXISTS sport_type;
+
+DROP TABLE IF EXISTS dish_ref;
+
+DROP TABLE IF EXISTS dish_ration;
+
