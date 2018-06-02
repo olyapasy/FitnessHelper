@@ -12,19 +12,8 @@ public class CompositeDish extends AbstractDish {
         this.setOfSimpleDish = setOfSimpleDish;
     }
 
-    public CompositeDish(String name, long calories, Date date, Set<SimpleDish> setOfSimpleDish) {
-        super(name, new DishType(DishType.Existed.COMPOSITE), calories, date);
-        this.setOfSimpleDish = setOfSimpleDish;
-    }
-
-
-
     public Set<SimpleDish> getSetOfSimpleDish() {
         return setOfSimpleDish;
-    }
-
-    public void setSetOfSimpleDish(Set<SimpleDish> setOfSimpleDish) {
-        this.setOfSimpleDish = setOfSimpleDish;
     }
 
     @Override

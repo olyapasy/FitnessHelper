@@ -18,16 +18,6 @@ public class Sport {
         this.date = date;
     }
 
-    public Sport(SportType sportType, String measureType, int measureValue, Date date) {
-        this.sportType = sportType;
-        this.measureType = measureType;
-        this.measureValue = measureValue;
-        this.date = date;
-    }
-
-    public Sport() {
-    }
-
     public long getId() {
         return id;
     }

@@ -20,13 +20,8 @@ import java.util.List;
 public class RationDAOImpl implements RationDAO {
     private DataBaseHandler dataBaseHandler;
     private SQLiteDatabase sqLiteDatabase;
-    private final String SELECT_BY_DATE = "SELECT  * FROM ration where date = ?";
-    private final String SELECT_BY_ID = "SELECT  * FROM ration where id = ?";
-    private final String SELECT_RATION_DISH = "SELECT  * FROM dish where id " +
-            "in(SELECT dish_id FROM dish_ration WHERE ration_id = ?)";
-    private final String INSERT_RATION = "INSERT INTO ration (id,name, date) VALUES(?,?,?)";
-    private final String INSERT_RATION_DISH = "INSERT INTO dish_ration (id,dish_id, ration_id)" +
-            " VALUES(?,?,?)";
+    private final String TABLE_NAME = "ration";
+    private final String TABLE_REF_NAME = "dish_ration";
 
     public RationDAOImpl(Context context) {
         this.dataBaseHandler = new DataBaseHandler(context);
@@ -35,14 +30,16 @@ public class RationDAOImpl implements RationDAO {
     @Override
     public Ration getById(long id) {
         sqLiteDatabase = getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_ID,
-                new String[]{String.valueOf(id)});
+        Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, "id = ?",
+                new String[]{String.valueOf(id)}, null, null, null);
         Ration ration = null;
 
         try {
             ration = EntityConverter.convertToRation(cursor);
-            cursor = sqLiteDatabase.rawQuery(SELECT_RATION_DISH,
-                    new String[]{String.valueOf(ration.getId())});
+            cursor = sqLiteDatabase.query(TABLE_REF_NAME, null,
+                    "composite_dish_id = ?",
+                    new String[]{String.valueOf(ration.getId())}, null, null,
+                    null);
             List<AbstractDish> abstractDishList = EntityConverter.convertToDishList(cursor);
             ration.setListOfDish(abstractDishList);
         } catch (Exception e) {
@@ -58,16 +55,18 @@ public class RationDAOImpl implements RationDAO {
     @Override
     public List<Ration> getByDate(Date date) {
         sqLiteDatabase = getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_BY_DATE,
-                new String[]{String.valueOf(date)});
+        Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, "date = ?",
+                new String[]{String.valueOf(date)}, null, null, null);
         List<Ration> rationList = Collections.emptyList();
 
         try {
             rationList = EntityConverter.convertToRationList(cursor);
 
             for (Ration ration : rationList) {
-                cursor = sqLiteDatabase.rawQuery(SELECT_RATION_DISH,
-                        new String[]{String.valueOf(ration.getId())});
+                cursor = sqLiteDatabase.query(TABLE_REF_NAME, null,
+                        "composite_dish_id = ?",
+                        new String[]{String.valueOf(ration.getId())}, null, null,
+                        null);
                 List<AbstractDish> abstractDishList = EntityConverter.convertToDishList(cursor);
                 ration.setListOfDish(abstractDishList);
             }
@@ -82,36 +81,90 @@ public class RationDAOImpl implements RationDAO {
     }
 
     @Override
-    public Ration create(Ration ration) {
+    public void create(Ration ration) {
         sqLiteDatabase = getWritableDatabase();
-        ContentValues values = new ContentValues();
 
-        values.put("name", ration.getName());
-        values.put("date", String.valueOf(ration.getDate()));
+        try {
+            ContentValues values = new ContentValues();
 
-        sqLiteDatabase.insert("ration", null, values);
-        List<AbstractDish> listOfDish = ration.getListOfDish();
+            values.put("name", ration.getName());
+            values.put("date", String.valueOf(ration.getDate()));
 
-        if (CollectionUtils.isNotEmpty(listOfDish)) {
+            sqLiteDatabase.insert(TABLE_NAME, null, values);
+            List<AbstractDish> listOfDish = ration.getListOfDish();
 
+            if (CollectionUtils.isNotEmpty(listOfDish)) {
+                for (AbstractDish dish : listOfDish) {
+                    values.clear();
+
+                    values.put("dish_id", dish.getId());
+                    values.put("ration_id", ration.getId());
+                    sqLiteDatabase.insert(TABLE_REF_NAME, null, values);
+                }
+            }
+        } finally {
+            sqLiteDatabase.close();
         }
-
-        return null;
     }
 
     @Override
-    public Ration update(Ration ration) {
-        return null;
+    public void update(Ration ration) {
+        sqLiteDatabase = getWritableDatabase();
+
+        try {
+            List<AbstractDish> listOfDish = ration.getListOfDish();
+            ContentValues values = new ContentValues();
+
+            values.put("name", ration.getName());
+            sqLiteDatabase.update(TABLE_NAME, values, "id = ?",
+                    new String[]{String.valueOf(ration.getId())});
+            sqLiteDatabase.delete(TABLE_REF_NAME, "ration_id = ?",
+                    new String[]{String.valueOf(ration.getId())});
+
+            if (CollectionUtils.isNotEmpty(listOfDish)) {
+                for (AbstractDish dish : listOfDish) {
+                    values.clear();
+
+                    values.put("dish_id", dish.getId());
+                    values.put("ration_id", ration.getId());
+                    sqLiteDatabase.insert(TABLE_REF_NAME, null, values);
+                }
+            }
+        } finally {
+            sqLiteDatabase.close();
+        }
     }
 
     @Override
     public void delete(long id) {
+        sqLiteDatabase = getWritableDatabase();
 
+        try {
+            sqLiteDatabase.delete(TABLE_NAME, "id = ?",
+                    new String[]{String.valueOf(id)});
+            sqLiteDatabase.delete(TABLE_REF_NAME, "ration_id = ?",
+                    new String[]{String.valueOf(id)});
+        } finally {
+            sqLiteDatabase.close();
+        }
     }
 
     @Override
     public void deleteAllByDate(Date date) {
+        sqLiteDatabase = getWritableDatabase();
 
+        try (Cursor cursor = sqLiteDatabase.query(TABLE_NAME, new String[]{"id"},
+                "date = ?", new String[]{String.valueOf(date)}, null,
+                null, null)) {
+            cursor.moveToFirst();
+            do {
+                long id = cursor.getLong(1);
+                delete(id);
+            } while (cursor.moveToNext());
+
+        } finally {
+            sqLiteDatabase.close();
+        }
     }
 
     private SQLiteDatabase getWritableDatabase() {

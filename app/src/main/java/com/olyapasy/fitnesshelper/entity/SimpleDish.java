@@ -7,9 +7,4 @@ public class SimpleDish extends AbstractDish {
     public SimpleDish(long id, String name, long calories, Date date) {
         super(id, name, new DishType(DishType.Existed.COMPOSITE), calories, date);
     }
-
-    public SimpleDish(String name, long calories, Date date) {
-        super(name, new DishType(DishType.Existed.COMPOSITE), calories, date);
-    }
-
 }

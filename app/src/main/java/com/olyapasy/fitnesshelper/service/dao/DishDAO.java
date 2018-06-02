@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface DishDAO {
     List<AbstractDish> getAll();
+
     AbstractDish getById(long id);
-    AbstractDish create(AbstractDish abstractDish);
-    AbstractDish update(AbstractDish abstractDish);
+
+    void create(AbstractDish abstractDish);
+
+    void update(AbstractDish abstractDish);
+
     void delete(long id);
 }

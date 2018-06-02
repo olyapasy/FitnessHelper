@@ -6,6 +6,8 @@ import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
+import com.olyapasy.fitnesshelper.entity.Sport;
+import com.olyapasy.fitnesshelper.entity.SportType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +19,7 @@ public class EntityConverter {
 
     private static SimpleDish convertToSimple(Cursor cursor) {
         SimpleDish simpleDish;
+
         int id = cursor.getInt(1);
         String name = cursor.getString(2);
         int calories = cursor.getInt(4);
@@ -28,6 +31,7 @@ public class EntityConverter {
 
     private static CompositeDish convertToCompositeDish(Cursor cursor, Type type) {
         CompositeDish compositeDish;
+
         int id = cursor.getInt(1);
         String name = cursor.getString(2);
         int calories = cursor.getInt(4);
@@ -48,6 +52,7 @@ public class EntityConverter {
     public static AbstractDish convertToDish(Cursor cursor) {
         cursor.moveToFirst();
         AbstractDish abstractDish;
+
         int dishType = cursor.getInt(3);
 
         if (dishType == 1) {
@@ -104,6 +109,65 @@ public class EntityConverter {
         ration = new Ration(id, name, date);
 
         return ration;
+    }
+
+    public static Sport convertToSport(Cursor cursor, List<SportType> sportTypeList) {
+        Sport sport;
+        SportType sportType = null;
+
+        long id = cursor.getLong(1);
+        String measureType = cursor.getString(3);
+        int measureValue = cursor.getInt(4);
+        Date date = new Date(cursor.getLong(5) * 1000);
+
+        for (SportType sType : sportTypeList) {
+            if (sType.getId() == sType.getId()) {
+                sportType = sType;
+                break;
+            }
+        }
+
+        sport = new Sport(id, sportType, measureType, measureValue, date);
+
+        return sport;
+    }
+
+    public static List<Sport> convertToSportList(Cursor cursor, List<SportType> sportTypeList) {
+        cursor.moveToFirst();
+        Sport sport;
+        List<Sport> sportList = new ArrayList<>();
+
+        do {
+            sport = convertToSport(cursor, sportTypeList);
+            sportList.add(sport);
+        } while (cursor.moveToNext());
+
+        return sportList;
+    }
+
+    public static SportType convertToSportType(Cursor cursor) {
+        SportType sportType = new SportType();
+
+        int id = cursor.getInt(1);
+        String name = cursor.getString(2);
+
+        sportType.setId(id);
+        sportType.setName(name);
+
+        return sportType;
+    }
+
+    public static List<SportType> convertToSportTypeList(Cursor cursor) {
+        cursor.moveToFirst();
+        SportType sportType;
+        List<SportType> sportList = new ArrayList<>();
+
+        do {
+            sportType = convertToSportType(cursor);
+            sportList.add(sportType);
+        } while (cursor.moveToNext());
+
+        return sportList;
     }
 
     public enum Type {
