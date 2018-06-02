@@ -13,6 +13,7 @@ import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -55,8 +56,9 @@ public class RationDAOImpl implements RationDAO {
     @Override
     public List<Ration> getByDate(Date date) {
         sqLiteDatabase = getWritableDatabase();
+        String formattedDate = SimpleDateFormat.getDateInstance(3).format(date);
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, "date = ?",
-                new String[]{String.valueOf(date)}, null, null, null);
+                new String[]{formattedDate}, null, null, null);
         List<Ration> rationList = Collections.emptyList();
 
         try {
@@ -86,9 +88,8 @@ public class RationDAOImpl implements RationDAO {
 
         try {
             ContentValues values = new ContentValues();
-
             values.put("name", ration.getName());
-            values.put("date", String.valueOf(ration.getDate()));
+            values.put("date", SimpleDateFormat.getDateInstance(3).format(ration.getDate()));
 
             sqLiteDatabase.insert(TABLE_NAME, null, values);
             List<AbstractDish> listOfDish = ration.getListOfDish();
@@ -152,9 +153,10 @@ public class RationDAOImpl implements RationDAO {
     @Override
     public void deleteAllByDate(Date date) {
         sqLiteDatabase = getWritableDatabase();
+        String formattedDate = SimpleDateFormat.getDateInstance(3).format(date);
 
         try (Cursor cursor = sqLiteDatabase.query(TABLE_NAME, new String[]{"id"},
-                "date = ?", new String[]{String.valueOf(date)}, null,
+                "date = ?", new String[]{formattedDate}, null,
                 null, null)) {
             cursor.moveToFirst();
             do {

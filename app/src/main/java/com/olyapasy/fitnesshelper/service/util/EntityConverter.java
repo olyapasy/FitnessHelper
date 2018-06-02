@@ -9,6 +9,8 @@ import com.olyapasy.fitnesshelper.entity.SimpleDish;
 import com.olyapasy.fitnesshelper.entity.Sport;
 import com.olyapasy.fitnesshelper.entity.SportType;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -17,14 +19,14 @@ import java.util.Set;
 
 public class EntityConverter {
 
-    private static SimpleDish convertToSimple(Cursor cursor) {
+    private static SimpleDish convertToSimple(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
             SimpleDish simpleDish;
 
-            int id = cursor.getInt(1);
-            String name = cursor.getString(2);
-            int calories = cursor.getInt(4);
-            Date date = new Date(cursor.getLong(5) * 1000);
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int calories = cursor.getInt(3);
+            Date date = SimpleDateFormat.getDateInstance(3).parse(cursor.getString(4));
             simpleDish = new SimpleDish(id, name, calories, date);
 
             return simpleDish;
@@ -33,14 +35,14 @@ public class EntityConverter {
         return null;
     }
 
-    private static CompositeDish convertToCompositeDish(Cursor cursor, Type type) {
+    private static CompositeDish convertToCompositeDish(Cursor cursor, Type type) throws ParseException {
         if (cursor.getCount() != 0) {
             CompositeDish compositeDish;
 
-            int id = cursor.getInt(1);
-            String name = cursor.getString(2);
-            int calories = cursor.getInt(4);
-            Date date = new Date(cursor.getLong(5) * 1000);
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int calories = cursor.getInt(3);
+            Date date = SimpleDateFormat.getDateInstance(3).parse(cursor.getString(4));
             Set<SimpleDish> simpleDishHashSet = Collections.emptySet();
 
             if (type.equals(Type.FULL)) {
@@ -57,12 +59,11 @@ public class EntityConverter {
         return null;
     }
 
-    public static AbstractDish convertToDish(Cursor cursor) {
+    public static AbstractDish convertToDish(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
-            cursor.moveToFirst();
             AbstractDish abstractDish;
 
-            int dishType = cursor.getInt(3);
+            int dishType = cursor.getInt(2);
 
             if (dishType == 1) {
                 abstractDish = convertToSimple(cursor);
@@ -76,14 +77,14 @@ public class EntityConverter {
         return null;
     }
 
-    public static List<AbstractDish> convertToDishList(Cursor cursor) {
+    public static List<AbstractDish> convertToDishList(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             List<AbstractDish> abstractDishList = new ArrayList<>();
 
             do {
                 AbstractDish abstractDish;
-                int dishType = cursor.getInt(3);
+                int dishType = cursor.getInt(2);
                 if (dishType == 1) {
                     abstractDish = convertToSimple(cursor);
                 } else {
@@ -98,17 +99,14 @@ public class EntityConverter {
         return null;
     }
 
-    public static List<Ration> convertToRationList(Cursor cursor) {
+    public static List<Ration> convertToRationList(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             Ration ration;
             List<Ration> rationList = new ArrayList<>();
 
             do {
-                long id = cursor.getLong(1);
-                String name = cursor.getString(2);
-                Date date = new Date(cursor.getLong(3) * 1000);
-                ration = new Ration(id, name, date);
+                ration = convertToRation(cursor);
 
                 rationList.add(ration);
             } while (cursor.moveToNext());
@@ -119,14 +117,13 @@ public class EntityConverter {
         return null;
     }
 
-    public static Ration convertToRation(Cursor cursor) {
+    public static Ration convertToRation(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
-            cursor.moveToFirst();
             Ration ration;
 
-            long id = cursor.getLong(1);
-            String name = cursor.getString(2);
-            Date date = new Date(cursor.getLong(3) * 1000);
+            long id = cursor.getLong(0);
+            String name = cursor.getString(1);
+            Date date = SimpleDateFormat.getDateInstance(3).parse(cursor.getString(2));
             ration = new Ration(id, name, date);
 
             return ration;
@@ -135,18 +132,18 @@ public class EntityConverter {
         return null;
     }
 
-    public static Sport convertToSport(Cursor cursor, List<SportType> sportTypeList) {
+    public static Sport convertToSport(Cursor cursor, List<SportType> sportTypeList) throws ParseException {
         if (cursor.getCount() != 0) {
             Sport sport;
             SportType sportType = null;
 
-            long id = cursor.getLong(1);
-            String measureType = cursor.getString(3);
-            int measureValue = cursor.getInt(4);
-            Date date = new Date(cursor.getLong(5) * 1000);
+            long id = cursor.getLong(0);
+            String measureType = cursor.getString(2);
+            int measureValue = cursor.getInt(3);
+            Date date = SimpleDateFormat.getDateInstance(3).parse(cursor.getString(4));
 
             for (SportType sType : sportTypeList) {
-                if (sType.getId() == sType.getId()) {
+                if (sType.getId() == cursor.getInt(1)) {
                     sportType = sType;
                     break;
                 }
@@ -160,7 +157,7 @@ public class EntityConverter {
         return null;
     }
 
-    public static List<Sport> convertToSportList(Cursor cursor, List<SportType> sportTypeList) {
+    public static List<Sport> convertToSportList(Cursor cursor, List<SportType> sportTypeList) throws ParseException {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             Sport sport;
@@ -181,8 +178,8 @@ public class EntityConverter {
         if (cursor.getCount() != 0) {
             SportType sportType = new SportType();
 
-            int id = cursor.getInt(1);
-            String name = cursor.getString(2);
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
 
             sportType.setId(id);
             sportType.setName(name);

@@ -11,6 +11,8 @@ import com.olyapasy.fitnesshelper.service.dao.SportDAO;
 import com.olyapasy.fitnesshelper.service.util.DataBaseHandler;
 import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -43,11 +45,15 @@ public class SportDAOImpl implements SportDAO {
 
     public List<Sport> getByDate(Date date) {
         sqLiteDatabase = getWritableDatabase();
-        List<Sport> sportList;
+        List<Sport> sportList = null;
+        String formattedDate = SimpleDateFormat.getDateInstance(3).format(date);
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, "date = ?",
-                new String[]{String.valueOf(date)}, null, null, null);
+                new String[]{formattedDate}, null, null, null);
+
         try {
             sportList = EntityConverter.convertToSportList(cursor, sportTypeList);
+        } catch (ParseException e) {
+            e.printStackTrace();
         } finally {
             sqLiteDatabase.close();
         }
@@ -64,7 +70,7 @@ public class SportDAOImpl implements SportDAO {
             values.put("type", sport.getSportType().getId());
             values.put("measure_type", sport.getMeasureType());
             values.put("measure_value", sport.getMeasureValue());
-            values.put("date", String.valueOf(sport.getDate()));
+            values.put("date", SimpleDateFormat.getDateInstance(3).format(sport.getDate()));
 
             sqLiteDatabase.insert(TABLE_NAME, null, values);
         } finally {
@@ -81,7 +87,7 @@ public class SportDAOImpl implements SportDAO {
             values.put("type", sport.getSportType().getId());
             values.put("measure_type", sport.getMeasureType());
             values.put("measure_value", sport.getMeasureValue());
-            values.put("date", String.valueOf(sport.getDate()));
+            values.put("date", SimpleDateFormat.getDateInstance(3).format(sport.getDate()));
 
             sqLiteDatabase.update(TABLE_NAME, values, "id = ?",
                     new String[]{String.valueOf(sport.getId())});

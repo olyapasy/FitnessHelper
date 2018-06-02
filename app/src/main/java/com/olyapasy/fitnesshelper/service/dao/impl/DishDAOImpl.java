@@ -14,7 +14,9 @@ import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -78,7 +80,7 @@ public class DishDAOImpl implements DishDAO {
             values.put("name", abstractDish.getName());
             values.put("type", abstractDish.getDishType().getId());
             values.put("calories", abstractDish.getCalories());
-            values.put("date", String.valueOf(abstractDish.getDate()));
+            values.put("date", SimpleDateFormat.getDateInstance(3).format(abstractDish.getDate()));
             sqLiteDatabase.insert(TABLE_NAME, null, values);
 
             if (abstractDish instanceof CompositeDish) {
@@ -108,7 +110,7 @@ public class DishDAOImpl implements DishDAO {
             ContentValues values = new ContentValues();
             values.put("name", abstractDish.getName());
             values.put("calories", abstractDish.getCalories());
-            values.put("date", String.valueOf(abstractDish.getDate()));
+            values.put("date", SimpleDateFormat.getDateInstance(3).format(abstractDish.getDate()));
 
             sqLiteDatabase.update(TABLE_NAME, values, "id = ?",
                     new String[]{String.valueOf(abstractDish.getId())});
