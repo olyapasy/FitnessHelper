@@ -1,5 +1,6 @@
 package com.olyapasy.fitnesshelper.view.activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.olyapasy.fitnesshelper.R;
+import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.view.adapter.RationAdapter;
+import com.olyapasy.fitnesshelper.view.fragments.RationEditFragment;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,14 @@ public class RationActivity extends AppCompatActivity {
         rationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Ration ration = (Ration) parent.getAdapter().getItem(position);
+                RationEditFragment rationEditFragment = new RationEditFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("id",ration.getId());
+                rationEditFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new RationEditFragment()).commit();
 
             }
         });

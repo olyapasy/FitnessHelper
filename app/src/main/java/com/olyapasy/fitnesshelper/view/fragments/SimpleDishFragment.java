@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
@@ -54,6 +56,8 @@ public class SimpleDishFragment extends Fragment {
             ImageButton addDish = (ImageButton) view.findViewById(R.id.doneAddDishButton);
             final EditText inputDishName = (EditText) view.findViewById(R.id.dishNameEdit);
             final EditText inputAmountOfKcal = (EditText) view.findViewById(R.id.kcalAmountEdit);
+
+            inputAmountOfKcal.setRawInputType(InputType.TYPE_CLASS_NUMBER);
             final Spinner typeSpinner = (Spinner) view.findViewById(R.id.spinnerType);
 
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),
@@ -88,6 +92,7 @@ public class SimpleDishFragment extends Fragment {
                 addDish.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         String dishName = inputDishName.getText().toString();
                         String amountKcal = inputAmountOfKcal.getText().toString();
                         dishService.create(new SimpleDish(0, dishName,
@@ -105,9 +110,12 @@ public class SimpleDishFragment extends Fragment {
 
                 inputDishName.setText(simpleDish.getName());
                 inputAmountOfKcal.setText(String.valueOf(simpleDish.getCalories()));
+
+
                 addDish.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         simpleDish.setName(inputDishName.getText().toString());
                         simpleDish.setCalories(Integer.parseInt(inputAmountOfKcal.getText()
                                 .toString()));
@@ -152,4 +160,8 @@ public class SimpleDishFragment extends Fragment {
 //    public void setMenuFragment(ComplexDishFragment complexDishFragment) {
 //        this.complexDishFragment = complexDishFragment;
 //    }
+
+    public static boolean isNumber(String str) {
+        return false;
+    }
 }
