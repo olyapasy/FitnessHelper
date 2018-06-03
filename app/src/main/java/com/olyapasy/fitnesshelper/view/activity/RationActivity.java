@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.entity.Ration;
@@ -55,5 +56,10 @@ public class RationActivity extends AppCompatActivity {
 
             }
         });
+
+        long totalAmountOfCal = rationAdapter.getTotalAmountOfCal();
+        TextView totalAmountTextView = findViewById(R.id.totalAmountValue);
+        totalAmountTextView.setText(String.valueOf(totalAmountOfCal));
+
     }
 }

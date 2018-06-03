@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -12,17 +11,14 @@ import android.widget.TextView;
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.data.dao.RationDAO;
 import com.olyapasy.fitnesshelper.data.dao.impl.RationDAOImpl;
-import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RationAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class RationAdapter extends BaseAdapter {
     private List<Ration> rations;
-    private Context context;
     private LayoutInflater inflater;
     private RationDAO rationDAO;
 
@@ -56,19 +52,22 @@ public class RationAdapter extends BaseAdapter implements AdapterView.OnItemClic
         }
 
         Ration ration = (Ration) getItem(position);
-
         ((TextView) view.findViewById(R.id.rationName)).setText(ration.getName());
         ((TextView) view.findViewById(R.id.amountOfDishesRation)).setText(String.valueOf(ration.getListOfDish()
                 .size()));
-        ((TextView) view.findViewById(R.id.amountOfKcalRation)).setText(String.valueOf(rationDAO
-                .getCaloriesById(ration.getId())));
+        ((TextView) view.findViewById(R.id.amountOfKcalRation)).setText(String.valueOf(DishServiceImpl
+                .getDishCalories(ration.getListOfDish())));
 
         return view;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public long getTotalAmountOfCal() {
+        long amountOfCAl = 0;
 
+        for (Ration ration : rations) {
+            amountOfCAl += DishServiceImpl.getDishCalories(ration.getListOfDish());
+        }
 
+        return amountOfCAl;
     }
 }

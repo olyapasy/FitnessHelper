@@ -73,5 +73,16 @@ public class DishServiceImpl {
 
         return calories;
     }
+
+    public static long getDishCalories(List<AbstractDish> abstractDishes) {
+        long calories = 0;
+
+        for (AbstractDish sDish : abstractDishes) {
+            calories += sDish.getCalories();
+        }
+
+        return calories;
+    }
+
 }
 

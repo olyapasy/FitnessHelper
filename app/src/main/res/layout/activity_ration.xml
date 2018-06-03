@@ -33,11 +33,11 @@
         android:textSize="21sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.565" />
+        app:layout_constraintVertical_bias="0.714" />
 
     <TextView
         android:id="@+id/totalCounter"
@@ -149,10 +149,10 @@
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/backgroundAddDish"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
         app:layout_constraintTop_toBottomOf="@+id/totalCounter"
-        app:layout_constraintVertical_bias="0.777"
+        app:layout_constraintVertical_bias="0.666"
         app:srcCompat="@drawable/ic_add_circle_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 
@@ -171,11 +171,29 @@
     <ListView
         android:id="@+id/rationList"
         android:layout_width="344dp"
-        android:layout_height="198dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/totalTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/totalAmountValue"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#ffff"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/addMeal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
         app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

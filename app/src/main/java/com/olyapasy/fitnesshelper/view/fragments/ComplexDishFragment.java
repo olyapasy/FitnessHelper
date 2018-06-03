@@ -122,6 +122,10 @@ public class ComplexDishFragment extends Fragment {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (String.valueOf(typeSpinner.getSelectedItem()).equals("Simple")) {
                         SimpleDishFragment simpleDishFragment = new SimpleDishFragment();
+                        Bundle extras = new Bundle();
+                        extras.putBoolean("create", true);
+                        extras.putInt("activity", activity);
+                        simpleDishFragment.setArguments(extras);
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.output, simpleDishFragment).commit();
                     }
