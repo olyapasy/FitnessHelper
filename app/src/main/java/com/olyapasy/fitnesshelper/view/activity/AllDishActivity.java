@@ -42,4 +42,13 @@ public class AllDishActivity extends AppCompatActivity {
         allDishAdapter.notifyDataSetChanged();
         listView.setAdapter(allDishAdapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        finish();
+        Intent intent = new Intent(AllDishActivity.this, RationActivity.class);
+        startActivity(intent);
+    }
 }

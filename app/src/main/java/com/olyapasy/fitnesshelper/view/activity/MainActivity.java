@@ -1,6 +1,8 @@
 package com.olyapasy.fitnesshelper.view.activity;
 
+import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +15,8 @@ import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
+import com.olyapasy.fitnesshelper.view.fragments.ComplexDishElementDialogFragment;
+import com.olyapasy.fitnesshelper.view.fragments.PersonParamsDialogFragment;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,6 +29,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
+        String myAge = sharedPref.getString("myAge", null);
+        if (myAge == null) {
+            openDialog();
+        } else {
+            String myWeight = sharedPref.getString("myWeight", null);
+            String myHeight = sharedPref.getString("myHeight", null);
+        }
+
+        System.out.println(sharedPref.getString("myAge", null));
+        System.out.println(sharedPref.getString("myWeight", null));
+        System.out.println(sharedPref.getString("myHeight", null));
 
         final Button rationButton = (Button) findViewById(R.id.rationButton);
         final Button sportButton = (Button) findViewById(R.id.sportButton);
@@ -55,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void openDialog() {
+        PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
+        personParamsDialogFragment.setSharedPreferences(getSharedPreferences("mySettings", MODE_PRIVATE));
+        personParamsDialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 }
