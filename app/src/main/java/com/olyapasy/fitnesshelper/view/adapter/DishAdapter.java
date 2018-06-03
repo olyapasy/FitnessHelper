@@ -9,24 +9,26 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.olyapasy.fitnesshelper.R;
+import com.olyapasy.fitnesshelper.data.dao.DishDAO;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
+import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class DishAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
-    Map<AbstractDish, Float> dishes;
-    List<AbstractDish> keys;
-    Context context;
-    LayoutInflater inflater;
+    private final DishServiceImpl dishService;
+    private Map<SimpleDish, Float> dishes;
+    private List<SimpleDish> keys;
+    private LayoutInflater inflater;
 
 
-    public DishAdapter(Map<AbstractDish, Float> dishes, Context context) {
+    public DishAdapter(Map<SimpleDish, Float> dishes, Context context, DishServiceImpl dishService) {
         this.dishes = dishes;
-        this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.dishService = dishService;
     }
 
     @Override
@@ -74,6 +76,7 @@ public class DishAdapter extends BaseAdapter implements AdapterView.OnItemClickL
             public void onClick(View v) {
                 dishes.remove(simpleDish);
                 notifyDataSetChanged();
+                dishService.remove(simpleDish);
             }
         });
 

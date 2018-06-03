@@ -11,7 +11,8 @@
         android:id="@+id/rationTitleText3"
         android:layout_width="200dp"
         android:layout_height="46dp"
-        android:text="Add new dish"
+        android:text="Dishes"
+        android:textAlignment="center"
         android:textColor="#ffff"
         android:textSize="32sp"
         android:textStyle="normal"
@@ -21,14 +22,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.008" />
 
-    <fragment
-        android:id="@+id/output"
-        android:name="com.olyapasy.fitnesshelper.view.fragments.SimpleDishFragment"
-        android:layout_width="388dp"
-        android:layout_height="465dp"
+    <ListView
+        android:id="@+id/allDishListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rationTitleText3" />
 </android.support.constraint.ConstraintLayout>

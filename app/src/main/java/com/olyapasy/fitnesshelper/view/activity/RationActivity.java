@@ -22,14 +22,18 @@ public class RationActivity extends AppCompatActivity {
         addDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RationActivity.this,DishMealActivity.class);
+                Intent i = new Intent(RationActivity.this, DishMealActivity.class);
                 startActivity(i);
 
             }
         });
 
-
-
-
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RationActivity.this, AllDishActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

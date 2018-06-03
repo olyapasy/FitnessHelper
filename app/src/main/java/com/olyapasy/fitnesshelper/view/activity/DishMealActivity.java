@@ -26,7 +26,7 @@ public class DishMealActivity extends FragmentActivity {
 //        bundle.putString("name", name);
 //        ComplexDishFragment complexDishFragment = new ComplexDishFragment();
 //        complexDishFragment.setArguments(bundle);
-//        Fragment fragment = new DishFragment();
+//        Fragment fragment = new SimpleDishFragment();
 //        FragmentManager manager = getSupportFragmentManager();
 //        FragmentTransaction transaction = manager.beginTransaction();
 //        transaction.replace(R.id.output, fragment);

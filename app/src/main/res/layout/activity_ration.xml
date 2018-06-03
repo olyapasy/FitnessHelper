@@ -232,7 +232,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalTitle"
         app:layout_constraintVertical_bias="0.881"
-        app:srcCompat="@drawable/ic_today_black_24dp"
+        app:srcCompat="@drawable/ic_restaurant_menu_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 
     <ImageButton

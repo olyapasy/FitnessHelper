@@ -12,9 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.olyapasy.fitnesshelper.R;
-import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
-import com.olyapasy.fitnesshelper.service.DishService;
+import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 import com.olyapasy.fitnesshelper.view.adapter.DishAdapter;
 
 import java.util.List;
@@ -23,14 +22,14 @@ import java.util.Map;
 public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
     private Spinner dishSpinner;
     private EditText amountOfKg;
-    private DishService dishService;
+    private DishServiceImpl dishService;
     private List<String> dishNames;
     private ArrayAdapter<String> spinnerAdapter;
     private SimpleDish simpleDish;
     private Map fromAdapter;
     private DishAdapter dishAdapter;
 
-    public void setDishService(DishService dishService) {
+    public void setDishService(DishServiceImpl dishService) {
         this.dishService = dishService;
     }
 
@@ -77,9 +76,9 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    public void setAdapterAndArraylist(Map<AbstractDish, Float> dishArrayList, DishAdapter dishAdapter) {
-       this.fromAdapter = dishArrayList;
-       this.dishAdapter = dishAdapter;
+    public void setAdapterAndArraylist(Map<SimpleDish, Float> dishArrayList, DishAdapter dishAdapter) {
+        this.fromAdapter = dishArrayList;
+        this.dishAdapter = dishAdapter;
     }
 
 }

@@ -17,21 +17,22 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.olyapasy.fitnesshelper.R;
+import com.olyapasy.fitnesshelper.entity.SimpleDish;
+import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DishFragment extends Fragment {
+public class SimpleDishFragment extends Fragment {
     ComplexDishFragment complexDishFragment;
     private EditText name;
     private EditText kcal;
-    ArrayList<String> firstList = new ArrayList<String>();
+    DishServiceImpl dishService;
 
-
-
-    public DishFragment() {
+    public SimpleDishFragment() {
         // Required empty public constructor
     }
 
@@ -39,6 +40,7 @@ public class DishFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        dishService = new DishServiceImpl(getContext());
         View rootView = inflater.inflate(R.layout.fragment_dish, container, false);
 
         return rootView;
@@ -81,10 +83,7 @@ public class DishFragment extends Fragment {
                 String amountKcal = inputAmountOfKcal.getText().toString();
                 inputDishName.setText(dishName);
                 inputAmountOfKcal.setText(amountKcal);
-                firstList.add(dishName);
-                firstList.add(amountKcal);
-                Toast toast = Toast.makeText(getContext(),firstList.get(0) +" "+ firstList.get(1),Toast.LENGTH_LONG);
-                toast.show();
+                dishService.create(new SimpleDish(0, dishName, Long.parseLong(amountKcal), new Date()));
 
 //                Bundle bundle = new Bundle();
 //                intent.putExtra("name",dishName);

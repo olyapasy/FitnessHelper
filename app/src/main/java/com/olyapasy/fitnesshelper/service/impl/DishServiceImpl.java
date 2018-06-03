@@ -18,9 +18,13 @@ public class DishServiceImpl implements DishService {
         dishDAO = new DishDAOImpl(context);
     }
 
+    public List<AbstractDish> getAllDish() {
+        return dishDAO.getAll();
+    }
+
     public List<SimpleDish> getAllSimpleDish() {
         List<SimpleDish> simpleDishes = new ArrayList<>();
-        List<AbstractDish> all = dishDAO.getAll();
+        List<AbstractDish> all = getAllDish();
 
         for (AbstractDish aDish : all) {
             if (aDish.getDishType().getId() == 1) {
@@ -40,6 +44,22 @@ public class DishServiceImpl implements DishService {
         }
 
         return simpleDishes;
+    }
+
+    public void remove(AbstractDish abstractDish) {
+        dishDAO.delete(abstractDish.getId());
+    }
+
+    public void create(AbstractDish abstractDish) {
+        dishDAO.create(abstractDish);
+    }
+
+    public AbstractDish getDishById(long id) {
+        return dishDAO.getById(id);
+    }
+
+    public void update(AbstractDish abstractDish) {
+        dishDAO.update(abstractDish);
     }
 }
 

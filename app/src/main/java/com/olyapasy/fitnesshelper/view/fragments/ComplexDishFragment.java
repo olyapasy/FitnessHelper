@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.olyapasy.fitnesshelper.R;
-import com.olyapasy.fitnesshelper.entity.AbstractDish;
+import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
 import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 import com.olyapasy.fitnesshelper.view.adapter.DishAdapter;
@@ -28,12 +28,13 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class ComplexDishFragment extends Fragment {
-    Map<AbstractDish, Float> dishArrayList = new HashMap<>();
+    Map<SimpleDish, Float> simpleDishHashMap = new HashMap<>();
     private Spinner typeSpinner;
     private EditText inputDishNameComplex;
     private ArrayAdapter<String> spinnerAdapterComplex;
     private DishAdapter dishAdapter;
     private ListView listView;
+    private DishServiceImpl dishService;
 
     public ComplexDishFragment() {
         // Required empty public constructor
@@ -43,13 +44,54 @@ public class ComplexDishFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        if (savedInstanceState)
+        dishService = new DishServiceImpl(getContext());
         View rootView = inflater.inflate(R.layout.fragment_complex_dish, container, false);
-
+        boolean createAction = true;
         typeSpinner = (Spinner) rootView.findViewById(R.id.spinnerType2);
         inputDishNameComplex = (EditText) rootView.findViewById(R.id.dishNameEditComplex);
         String dishNameComplex = inputDishNameComplex.getText().toString();
-        inputDishNameComplex.setText(dishNameComplex);
+
+        if (createAction) {
+            inputDishNameComplex.setText(dishNameComplex);
+            //TODO add name and cal for fragment
+            final String name = dishNameComplex;
+            final int calories = 0;
+            simpleDishHashMap.put(new SimpleDish(0, name, calories, new Date()), 0.0f);
+
+            ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
+            addCompositeDish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dishService.create(new CompositeDish(0, name, calories, new Date(), simpleDishHashMap));
+                }
+            });
+
+            ImageButton button = rootView.findViewById(R.id.addSimpleDishToCompositeBut);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openDialog();
+                }
+            });
+        } else {
+            //TODO add id and new name from another fragment
+            inputDishNameComplex.setText(dishNameComplex);
+            long id = 0;
+            final CompositeDish compositeDish = (CompositeDish) dishService.getDishById(id);
+            simpleDishHashMap = compositeDish.getSimpleDishMap();
+            final String name = dishNameComplex;
+
+            ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
+            addCompositeDish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    compositeDish.setSimpleDishMap(simpleDishHashMap);
+                    compositeDish.setName(name);
+                    dishService.update(compositeDish);
+                }
+            });
+
+        }
 
         spinnerAdapterComplex = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Types2));
@@ -59,9 +101,9 @@ public class ComplexDishFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (String.valueOf(typeSpinner.getSelectedItem()).equals("Simple")) {
-                    DishFragment dishFragment = new DishFragment();
+                    SimpleDishFragment simpleDishFragment = new SimpleDishFragment();
                     FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.output, dishFragment).commit();
+                    fragmentManager.beginTransaction().replace(R.id.output, simpleDishFragment).commit();
                 }
             }
 
@@ -70,18 +112,8 @@ public class ComplexDishFragment extends Fragment {
             }
         });
 
-        dishArrayList.put(new SimpleDish(1, "name", 10, new Date()), 0.1f);
-        dishArrayList.put(new SimpleDish(2, "NAMENAME", 101, new Date()), 0.133f);
-        dishArrayList.put(new SimpleDish(3, "PUPALUPA", 100, new Date()), 0.12f);
         listView = (ListView) rootView.findViewById(R.id.dishesListView);
-        dishAdapter = new DishAdapter(dishArrayList, getContext());
-        ImageButton button = (ImageButton) rootView.findViewById(R.id.addSimpleDishToCompositeBut);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-            }
-        });
+        dishAdapter = new DishAdapter(simpleDishHashMap, getContext(), dishService);
         listView.setAdapter(dishAdapter);
 
         return rootView;
@@ -89,9 +121,9 @@ public class ComplexDishFragment extends Fragment {
 
     private void openDialog() {
         ComplexDishElementDialogFragment complexDishElementDialogFragment = new ComplexDishElementDialogFragment();
-        complexDishElementDialogFragment.setDishService(new DishServiceImpl(getContext()));
-        complexDishElementDialogFragment.setAdapterAndArraylist(dishArrayList, dishAdapter);
-        complexDishElementDialogFragment.show(getFragmentManager(), "create dialog");
+        complexDishElementDialogFragment.setDishService(dishService);
+        complexDishElementDialogFragment.setAdapterAndArraylist(simpleDishHashMap, dishAdapter);
+        complexDishElementDialogFragment.show(getFragmentManager(), "dialog");
     }
 
 }

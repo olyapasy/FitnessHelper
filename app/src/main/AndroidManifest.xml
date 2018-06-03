@@ -19,6 +19,7 @@
         <activity android:name=".view.activity.RationActivity" />
         <activity android:name=".view.activity.SportActivity" />
         <activity android:name=".view.activity.DishMealActivity"></activity>
+        <activity android:name=".view.activity.AllDishActivity"></activity>
     </application>
 
 </manifest>
