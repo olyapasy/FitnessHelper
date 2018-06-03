@@ -17,6 +17,7 @@ import com.olyapasy.fitnesshelper.entity.SimpleDish;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDish simpleDish = new SimpleDish(1, "name", 101, new Date());
                 long l = new DishDAOImpl(getApplicationContext()).create(simpleDish);
                 new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "nameNAME", 01, new Date()));
-                long namNAMEe = new DishDAOImpl(getApplicationContext()).create(new CompositeDish(1, "namNAMEe", 121, new Date(), Collections.<SimpleDish, Float>emptyMap()));
+                HashMap<SimpleDish, Float> simpleDishFloatHashMap = new HashMap<>();
+                simpleDishFloatHashMap.put(new SimpleDish(l, "name", 101, new Date()), 0.2f);
+                long namNAMEe = new DishDAOImpl(getApplicationContext()).create(new CompositeDish(1, "namNAMEe", 121, new Date(), simpleDishFloatHashMap));
                 Ration ration = new Ration(0, "Breakfast", new Date());
                 ration.setListOfDish(Arrays.<AbstractDish>asList(new SimpleDish(l, "name", 101, new Date())
                 ,new SimpleDish(namNAMEe, "name", 101, new Date())));
-
                 new RationDAOImpl(getApplicationContext()).create(ration);
+
                 Intent i = new Intent(MainActivity.this, RationActivity.class);
                 startActivity(i);
             }

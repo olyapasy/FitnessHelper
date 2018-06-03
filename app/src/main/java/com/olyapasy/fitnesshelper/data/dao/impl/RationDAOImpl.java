@@ -5,9 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.olyapasy.fitnesshelper.data.dao.RationDAO;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
-import com.olyapasy.fitnesshelper.data.dao.RationDAO;
 import com.olyapasy.fitnesshelper.service.util.DataBaseHandler;
 import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
@@ -23,6 +23,8 @@ public class RationDAOImpl implements RationDAO {
     private SQLiteDatabase sqLiteDatabase;
     private final String TABLE_NAME = "ration";
     private final String TABLE_REF_NAME = "dish_ration";
+    private final String SELECT_DISH_BY_RATION_ID = "SELECT d.* FROM dish d, dish_ration dr " +
+            "WHERE d.id =dr.dish_id and ration_id = ?";
 
     public RationDAOImpl(Context context) {
         this.dataBaseHandler = new DataBaseHandler(context);
@@ -34,14 +36,14 @@ public class RationDAOImpl implements RationDAO {
         Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, "id = ?",
                 new String[]{String.valueOf(id)}, null, null, null);
         Ration ration = null;
+        List<AbstractDish> abstractDishList = Collections.emptyList();
 
         try {
+            cursor.moveToFirst();
             ration = EntityConverter.convertToRation(cursor);
-            cursor = sqLiteDatabase.query(TABLE_REF_NAME, null,
-                    "composite_dish_id = ?",
-                    new String[]{String.valueOf(ration.getId())}, null, null,
-                    null);
-            List<AbstractDish> abstractDishList = EntityConverter.convertToDishList(cursor);
+            cursor = sqLiteDatabase.rawQuery(SELECT_DISH_BY_RATION_ID,
+                    new String[]{String.valueOf(ration.getId())});
+            abstractDishList = EntityConverter.convertToDishList(cursor);
             ration.setListOfDish(abstractDishList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,10 +67,8 @@ public class RationDAOImpl implements RationDAO {
             rationList = EntityConverter.convertToRationList(cursor);
 
             for (Ration ration : rationList) {
-                cursor = sqLiteDatabase.query(TABLE_REF_NAME, null,
-                        "composite_dish_id = ?",
-                        new String[]{String.valueOf(ration.getId())}, null, null,
-                        null);
+                cursor = sqLiteDatabase.rawQuery(SELECT_DISH_BY_RATION_ID,
+                        new String[]{String.valueOf(ration.getId())});
                 List<AbstractDish> abstractDishList = EntityConverter.convertToDishList(cursor);
                 ration.setListOfDish(abstractDishList);
             }
@@ -83,15 +83,16 @@ public class RationDAOImpl implements RationDAO {
     }
 
     @Override
-    public int getCaloriesById(long id) {
-        sqLiteDatabase = getWritableDatabase();
-        return 0;
-    }
+    public long getCaloriesById(long id) {
+        Ration ration = getById(id);
+        List<AbstractDish> listOfDish = ration.getListOfDish();
+        long cal = 0;
 
-    @Override
-    public int getDishAmountById(long id) {
-//        SELECT count(*) FROM dish_ration WHERE ration_id = 1;
-        return 0;
+        for (AbstractDish aDish : listOfDish) {
+            cal += aDish.getCalories();
+        }
+
+        return cal;
     }
 
     @Override
@@ -103,7 +104,7 @@ public class RationDAOImpl implements RationDAO {
             values.put("name", ration.getName());
             values.put("date", SimpleDateFormat.getDateInstance(3).format(ration.getDate()));
 
-            sqLiteDatabase.insert(TABLE_NAME, null, values);
+            long insert = sqLiteDatabase.insert(TABLE_NAME, null, values);
             List<AbstractDish> listOfDish = ration.getListOfDish();
 
             if (CollectionUtils.isNotEmpty(listOfDish)) {
@@ -111,7 +112,7 @@ public class RationDAOImpl implements RationDAO {
                     values.clear();
 
                     values.put("dish_id", dish.getId());
-                    values.put("ration_id", ration.getId());
+                    values.put("ration_id", insert);
                     sqLiteDatabase.insert(TABLE_REF_NAME, null, values);
                 }
             }
