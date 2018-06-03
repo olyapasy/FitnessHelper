@@ -40,7 +40,7 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_simple_dish_dialog, null);
+        View view = inflater.inflate(R.layout.custom_simple_dish_dialog,null);
 
         builder.setView(view)
                 .setTitle("Create")
