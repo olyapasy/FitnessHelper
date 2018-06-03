@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="0.8" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/backAddDishButton"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:background="@android:color/transparent"

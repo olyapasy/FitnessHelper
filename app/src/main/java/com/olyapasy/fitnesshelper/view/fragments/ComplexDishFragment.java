@@ -1,6 +1,7 @@
 package com.olyapasy.fitnesshelper.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +16,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.olyapasy.fitnesshelper.R;
+import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
 import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
+import com.olyapasy.fitnesshelper.view.activity.AllDishActivity;
+import com.olyapasy.fitnesshelper.view.activity.DishMealActivity;
+import com.olyapasy.fitnesshelper.view.activity.RationActivity;
 import com.olyapasy.fitnesshelper.view.adapter.DishAdapter;
 
 import java.util.Date;
@@ -30,91 +35,104 @@ import java.util.Map;
 public class ComplexDishFragment extends Fragment {
     Map<SimpleDish, Float> simpleDishHashMap = new HashMap<>();
     private Spinner typeSpinner;
-    private EditText inputDishNameComplex;
-    private ArrayAdapter<String> spinnerAdapterComplex;
     private DishAdapter dishAdapter;
-    private ListView listView;
     private DishServiceImpl dishService;
+    private View rootView;
 
     public ComplexDishFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dishService = new DishServiceImpl(getContext());
-        View rootView = inflater.inflate(R.layout.fragment_complex_dish, container, false);
-        boolean createAction = true;
+        dishService = new DishServiceImpl(getActivity());
+        rootView = inflater.inflate(R.layout.fragment_complex_dish, container, false);
+        Bundle extras = getArguments();
         typeSpinner = (Spinner) rootView.findViewById(R.id.spinnerType2);
-        inputDishNameComplex = (EditText) rootView.findViewById(R.id.dishNameEditComplex);
-        String dishNameComplex = inputDishNameComplex.getText().toString();
 
-        if (createAction) {
-            inputDishNameComplex.setText(dishNameComplex);
-            //TODO add name and cal for fragment
-            final String name = dishNameComplex;
-            final int calories = 0;
-            simpleDishHashMap.put(new SimpleDish(0, name, calories, new Date()), 0.0f);
+        if (extras != null) {
+            final EditText inputDishName = (EditText) rootView.findViewById(R.id.dishNameEditComplex);
+            boolean createAction = extras.getBoolean("create");
+            final int activity = extras.getInt("activity");
 
-            ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
+            if (createAction) {
+                simpleDishHashMap.put(new SimpleDish(0, "simple dish", 0, new Date()), 0.0f);
+
+                ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
+                addCompositeDish.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dishAdapter.notifyDataSetChanged();
+                        String dishNameComplex = inputDishName.getText().toString();
+                        dishService.create(new CompositeDish(0, dishNameComplex, 0,
+                                new Date(), simpleDishHashMap));
+                        getActivity().finish();
+                        startActivity(formIntent(activity));
+                    }
+                });
+
+                ImageButton button = rootView.findViewById(R.id.addSimpleDishToCompositeBut);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openDialog();
+                    }
+                });
+            } else {
+                long id = extras.getLong("id");
+                final CompositeDish compositeDish = (CompositeDish) dishService.getDishById(id);
+                inputDishName.setText(compositeDish.getName());
+                simpleDishHashMap = compositeDish.getSimpleDishMap();
+
+
+                ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
+                addCompositeDish.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String dishNameComplex = inputDishName.getText().toString();
+                        compositeDish.setSimpleDishMap(simpleDishHashMap);
+                        compositeDish.setName(dishNameComplex);
+                        dishService.update(compositeDish);
+
+                        getActivity().finish();
+                        startActivity(formIntent(activity));
+                    }
+                });
+            }
+
+            ImageButton addCompositeDish = rootView.findViewById(R.id.backAddDishButton);
             addCompositeDish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dishService.create(new CompositeDish(0, name, calories, new Date(), simpleDishHashMap));
+                    getActivity().finish();
+                    startActivity(formIntent(activity));
                 }
             });
 
-            ImageButton button = rootView.findViewById(R.id.addSimpleDishToCompositeBut);
-            button.setOnClickListener(new View.OnClickListener() {
+            ArrayAdapter<String> spinnerAdapterComplex = new ArrayAdapter<>(getContext(),
+                    android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Types2));
+            spinnerAdapterComplex.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            typeSpinner.setAdapter(spinnerAdapterComplex);
+            typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onClick(View v) {
-                    openDialog();
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (String.valueOf(typeSpinner.getSelectedItem()).equals("Simple")) {
+                        SimpleDishFragment simpleDishFragment = new SimpleDishFragment();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.output, simpleDishFragment).commit();
+                    }
                 }
-            });
-        } else {
-            //TODO add id and new name from another fragment
-            inputDishNameComplex.setText(dishNameComplex);
-            long id = 0;
-            final CompositeDish compositeDish = (CompositeDish) dishService.getDishById(id);
-            simpleDishHashMap = compositeDish.getSimpleDishMap();
-            final String name = dishNameComplex;
 
-            ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
-            addCompositeDish.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    compositeDish.setSimpleDishMap(simpleDishHashMap);
-                    compositeDish.setName(name);
-                    dishService.update(compositeDish);
+                public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
 
+            ListView listView = (ListView) rootView.findViewById(R.id.dishesListView);
+            dishAdapter = new DishAdapter(simpleDishHashMap, getContext(), dishService);
+            listView.setAdapter(dishAdapter);
         }
-
-        spinnerAdapterComplex = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Types2));
-        spinnerAdapterComplex.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(spinnerAdapterComplex);
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (String.valueOf(typeSpinner.getSelectedItem()).equals("Simple")) {
-                    SimpleDishFragment simpleDishFragment = new SimpleDishFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.output, simpleDishFragment).commit();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        listView = (ListView) rootView.findViewById(R.id.dishesListView);
-        dishAdapter = new DishAdapter(simpleDishHashMap, getContext(), dishService);
-        listView.setAdapter(dishAdapter);
 
         return rootView;
     }
@@ -126,4 +144,16 @@ public class ComplexDishFragment extends Fragment {
         complexDishElementDialogFragment.show(getFragmentManager(), "dialog");
     }
 
+    private Intent formIntent(int activity) {
+        Class _class = null;
+        if (activity == 1) {
+            _class = AllDishActivity.class;
+        }
+        if (activity == 2) {
+            _class = RationActivity.class;
+        }
+
+        Intent intent = new Intent(getActivity(), _class);
+        return intent;
+    }
 }

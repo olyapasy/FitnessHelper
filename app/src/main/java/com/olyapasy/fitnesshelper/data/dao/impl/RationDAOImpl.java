@@ -83,6 +83,18 @@ public class RationDAOImpl implements RationDAO {
     }
 
     @Override
+    public int getCaloriesById(long id) {
+        sqLiteDatabase = getWritableDatabase();
+        return 0;
+    }
+
+    @Override
+    public int getDishAmountById(long id) {
+//        SELECT count(*) FROM dish_ration WHERE ration_id = 1;
+        return 0;
+    }
+
+    @Override
     public void create(Ration ration) {
         sqLiteDatabase = getWritableDatabase();
 
@@ -168,6 +180,7 @@ public class RationDAOImpl implements RationDAO {
             sqLiteDatabase.close();
         }
     }
+
 
     private SQLiteDatabase getWritableDatabase() {
         return dataBaseHandler.getWritableDatabase();

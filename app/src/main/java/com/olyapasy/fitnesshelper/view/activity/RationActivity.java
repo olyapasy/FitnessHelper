@@ -15,7 +15,6 @@ import com.olyapasy.fitnesshelper.view.adapter.RationAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class RationActivity extends AppCompatActivity {
     ArrayList<Ration> rations = new ArrayList<>();
@@ -34,8 +33,10 @@ public class RationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(RationActivity.this, DishMealActivity.class);
-                startActivity(i);
+                i.putExtra("create", true);
+                i.putExtra("activity", 2);
 
+                startActivity(i);
             }
         });
 
@@ -43,11 +44,12 @@ public class RationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(RationActivity.this, AllDishActivity.class);
+
                 startActivity(i);
             }
         });
 
-        final RationAdapter rationAdapter = new RationAdapter(rations,this);
+        final RationAdapter rationAdapter = new RationAdapter(rations, this);
         rationList.setAdapter(rationAdapter);
         rationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,17 +60,9 @@ public class RationActivity extends AppCompatActivity {
     }
 
     private void fillData() {
-        rations.add(new Ration(1,"Breakfast",new Date()));
-        rations.add(new Ration(2,"Dinner",new Date()));
-        rations.add(new Ration(3,"Supper",new Date()));
-        rations.add(new Ration(1,"Break",new Date()));
-        rations.add(new Ration(2,"ButerBROd",new Date()));
-        rations.add(new Ration(3,"AntiPas",new Date()));
-        rations.add(new Ration(1,"Breakfast",new Date()));
-        rations.add(new Ration(2,"Dinner",new Date()));
-        rations.add(new Ration(3,"Supper",new Date()));
-        rations.add(new Ration(1,"Breakfast",new Date()));
-        rations.add(new Ration(2,"Dinner",new Date()));
-        rations.add(new Ration(3,"Supper",new Date()));
+        rations.add(new Ration(1, "Breakfast", new Date()));
+        rations.add(new Ration(2, "Dinner", new Date()));
+        rations.add(new Ration(3, "Supper", new Date()));
+        rations.add(new Ration(1, "Break", new Date()));
     }
 }

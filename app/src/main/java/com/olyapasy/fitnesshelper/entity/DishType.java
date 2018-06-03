@@ -26,7 +26,7 @@ public class DishType {
     }
 
 
-    enum Existed {
+   public enum Existed {
         SIMPLE(1, "simple"), COMPOSITE(2, "composite");
 
         private int id;

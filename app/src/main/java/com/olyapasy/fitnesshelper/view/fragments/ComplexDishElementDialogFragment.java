@@ -23,10 +23,8 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
     private Spinner dishSpinner;
     private EditText amountOfKg;
     private DishServiceImpl dishService;
-    private List<String> dishNames;
-    private ArrayAdapter<String> spinnerAdapter;
     private SimpleDish simpleDish;
-    private Map fromAdapter;
+    private Map<SimpleDish, Float> fromAdapter;
     private DishAdapter dishAdapter;
 
     public void setDishService(DishServiceImpl dishService) {
@@ -36,11 +34,11 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<SimpleDish> allSimpleDish = dishService.getAllSimpleDish();
-        dishNames = dishService.getAllDishNames(allSimpleDish);
+        List<String> dishNames = dishService.getAllDishNames(allSimpleDish);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_simple_dish_dialog,null);
+        View view = inflater.inflate(R.layout.custom_simple_dish_dialog, null);
 
         builder.setView(view)
                 .setTitle("Create")
@@ -68,7 +66,7 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
 
         amountOfKg = view.findViewById(R.id.dialogAmountOfKg);
         dishSpinner = (Spinner) view.findViewById(R.id.dialogSpinner);
-        spinnerAdapter = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_expandable_list_item_1, dishNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dishSpinner.setAdapter(spinnerAdapter);

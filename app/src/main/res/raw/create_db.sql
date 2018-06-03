@@ -43,5 +43,6 @@ CREATE TABLE dish_ref (
 CREATE TABLE dish_ration (
 	id integer PRIMARY KEY AUTOINCREMENT,
 	dish_id integer,
-	ration_id integer
+	ration_id integer,
+	kg_amount integer
 );

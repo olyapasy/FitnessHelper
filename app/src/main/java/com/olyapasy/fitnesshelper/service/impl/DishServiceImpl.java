@@ -6,12 +6,11 @@ import com.olyapasy.fitnesshelper.data.dao.DishDAO;
 import com.olyapasy.fitnesshelper.data.dao.impl.DishDAOImpl;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
-import com.olyapasy.fitnesshelper.service.DishService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DishServiceImpl implements DishService {
+public class DishServiceImpl {
     private DishDAO dishDAO;
 
     public DishServiceImpl(Context context) {

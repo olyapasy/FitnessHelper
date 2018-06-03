@@ -8,8 +8,10 @@ import android.widget.Button;
 
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.data.dao.impl.DishDAOImpl;
+import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
 
+import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,18 +28,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "name", 101, new Date()));
                 new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "nameNAME", 01, new Date()));
-                new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "namNAMEe", 121, new Date()));
-                Intent i = new Intent(MainActivity.this,RationActivity.class);
+                new DishDAOImpl(getApplicationContext()).create(new CompositeDish(1, "namNAMEe", 121, new Date(), Collections.<SimpleDish, Float>emptyMap()));
+                Intent i = new Intent(MainActivity.this, RationActivity.class);
                 startActivity(i);
             }
         });
         sportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,SportActivity.class);
+                Intent i = new Intent(MainActivity.this, SportActivity.class);
                 startActivity(i);
             }
         });
+
 
     }
 }

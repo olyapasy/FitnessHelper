@@ -14,7 +14,7 @@ import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 
 import java.util.List;
 
-public class AllDishAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
+public class AllDishAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private DishServiceImpl dishService;
     private List<AbstractDish> dishArrayList;
@@ -63,10 +63,5 @@ public class AllDishAdapter extends BaseAdapter implements AdapterView.OnItemCli
         });
 
         return view;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }
