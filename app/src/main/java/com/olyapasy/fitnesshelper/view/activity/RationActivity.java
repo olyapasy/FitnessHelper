@@ -35,6 +35,7 @@ public class RationActivity extends AppCompatActivity {
                 i.putExtra("create", true);
                 i.putExtra("activity", 2);
 
+                finish();
                 startActivity(i);
             }
         });
@@ -44,6 +45,7 @@ public class RationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(RationActivity.this, AllDishActivity.class);
 
+                finish();
                 startActivity(i);
             }
         });
@@ -60,6 +62,5 @@ public class RationActivity extends AppCompatActivity {
         long totalAmountOfCal = rationAdapter.getTotalAmountOfCal();
         TextView totalAmountTextView = findViewById(R.id.totalAmountValue);
         totalAmountTextView.setText(String.valueOf(totalAmountOfCal));
-
     }
 }

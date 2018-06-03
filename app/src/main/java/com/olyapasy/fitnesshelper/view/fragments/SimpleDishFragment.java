@@ -125,6 +125,7 @@ public class SimpleDishFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     getActivity().finish();
+                    startActivity(formIntent(activity));
                 }
             });
 

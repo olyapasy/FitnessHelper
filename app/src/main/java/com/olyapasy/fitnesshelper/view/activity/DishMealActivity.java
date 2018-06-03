@@ -1,5 +1,6 @@
 package com.olyapasy.fitnesshelper.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -30,8 +31,7 @@ public class DishMealActivity extends FragmentActivity {
             } else {
                 fragment = new ComplexDishFragment();
             }
-        }
-        else {
+        } else {
             extras = new Bundle();
             extras.putBoolean("create", true);
             extras.putInt("activity", 2);
@@ -43,5 +43,15 @@ public class DishMealActivity extends FragmentActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.output, fragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        finish();
+        startActivity(intent);
+
     }
 }
