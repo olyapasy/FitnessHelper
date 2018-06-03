@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.olyapasy.fitnesshelper.entity.SportType;
 import com.olyapasy.fitnesshelper.data.dao.SportTypeDAO;
+import com.olyapasy.fitnesshelper.entity.SportType;
 import com.olyapasy.fitnesshelper.service.util.DataBaseHandler;
 import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 

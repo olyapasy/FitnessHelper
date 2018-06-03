@@ -1,6 +1,5 @@
 package com.olyapasy.fitnesshelper.view.activity;
 
-import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,11 +14,9 @@ import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
-import com.olyapasy.fitnesshelper.view.fragments.ComplexDishElementDialogFragment;
 import com.olyapasy.fitnesshelper.view.fragments.PersonParamsDialogFragment;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 long namNAMEe = new DishDAOImpl(getApplicationContext()).create(new CompositeDish(1, "namNAMEe", 121, new Date(), simpleDishFloatHashMap));
                 Ration ration = new Ration(0, "Breakfast", new Date());
                 ration.setListOfDish(Arrays.<AbstractDish>asList(new SimpleDish(l, "name", 101, new Date())
-                ,new SimpleDish(namNAMEe, "name", 101, new Date())));
+                        , new SimpleDish(namNAMEe, "name", 101, new Date())));
                 new RationDAOImpl(getApplicationContext()).create(ration);
 
                 Intent i = new Intent(MainActivity.this, RationActivity.class);

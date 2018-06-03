@@ -33,7 +33,7 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
         weight = view.findViewById(R.id.weightInput);
 
         builder.setView(view)
-                .setTitle("Create")
+                .setTitle("Personal data")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -63,9 +63,10 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
 
         return builder.create();
     }
-private void showFragment() {
-    PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
-    personParamsDialogFragment.show(getFragmentManager(), "dialog");
-}
+
+    private void showFragment() {
+        PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
+        personParamsDialogFragment.show(getFragmentManager(), "dialog");
+    }
 
 }

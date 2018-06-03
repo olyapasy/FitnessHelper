@@ -1,6 +1,5 @@
 package com.olyapasy.fitnesshelper.view.activity;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.olyapasy.fitnesshelper.R;
-import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.view.adapter.RationAdapter;
 import com.olyapasy.fitnesshelper.view.fragments.RationEditFragment;
@@ -30,7 +28,7 @@ public class RationActivity extends AppCompatActivity {
         final Button back = (Button) findViewById(R.id.backButton);
         //сделать кнопку назад
         final ImageButton addDish = (ImageButton) findViewById(R.id.addDishButton);
-        final ImageButton calendarButton = (ImageButton) findViewById(R.id.calenderButton);
+        final ImageButton allDishButton = (ImageButton) findViewById(R.id.allDishBut);
         addDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +41,7 @@ public class RationActivity extends AppCompatActivity {
             }
         });
 
-        calendarButton.setOnClickListener(new View.OnClickListener() {
+        allDishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(RationActivity.this, AllDishActivity.class);
@@ -59,11 +57,11 @@ public class RationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
                 Ration ration = (Ration) parent.getAdapter().getItem(position);
                 RationEditFragment rationEditFragment = new RationEditFragment();
                 Bundle bundle = new Bundle();
-                bundle.putLong("id",ration.getId());
+                bundle.putBoolean("create", false);
+                bundle.putLong("id", ration.getId());
                 rationEditFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, rationEditFragment).commit();
 
