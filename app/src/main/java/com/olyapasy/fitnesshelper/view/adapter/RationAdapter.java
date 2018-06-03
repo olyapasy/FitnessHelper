@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -18,14 +17,16 @@ import java.util.Date;
 import java.util.List;
 
 public class RationAdapter extends BaseAdapter {
+    private final TextView totalAmountTextView;
     private List<Ration> rations;
     private LayoutInflater inflater;
     private RationDAO rationDAO;
 
-    public RationAdapter(Context context) {
+    public RationAdapter(Context context, TextView totalAmountTextView) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rationDAO = new RationDAOImpl(context);
         this.rations = rationDAO.getByDate(new Date());
+        this.totalAmountTextView = totalAmountTextView;
     }
 
     @Override
@@ -51,12 +52,22 @@ public class RationAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.ration_list_item, parent, false);
         }
 
-        Ration ration = (Ration) getItem(position);
+        final Ration ration = (Ration) getItem(position);
         ((TextView) view.findViewById(R.id.rationName)).setText(ration.getName());
         ((TextView) view.findViewById(R.id.amountOfDishesRation)).setText(String.valueOf(ration.getListOfDish()
                 .size()));
         ((TextView) view.findViewById(R.id.amountOfKcalRation)).setText(String.valueOf(DishServiceImpl
                 .getDishCalories(ration.getListOfDish())));
+
+        view.findViewById(R.id.deleteRationButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rations.remove(ration);
+                notifyDataSetChanged();
+                rationDAO.delete(ration.getId());
+                totalAmountTextView.setText(String.valueOf(getTotalAmountOfCal()));
+            }
+        });
 
         return view;
     }

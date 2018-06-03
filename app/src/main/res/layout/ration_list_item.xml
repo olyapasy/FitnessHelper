@@ -4,11 +4,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#384B5F"
+    android:clickable="false"
+    android:focusable="false"
+    android:descendantFocusability="blocksDescendants"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/rationName"
-        android:layout_width="119dp"
+        android:layout_width="141dp"
         android:layout_height="30dp"
         android:layout_weight="1"
         android:textColor="@android:color/white"
@@ -16,26 +19,37 @@
 
     <TextView
         android:id="@+id/amountOfDishesRation"
-        android:layout_width="73dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/amountOfKcalRation"
-        android:layout_width="99dp"
+        android:layout_width="153dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
+        android:layout_width="91dp"
         android:layout_height="35dp"
         android:layout_weight="1"
         android:text="kcal"
+        android:textAlignment="center"
         android:textColor="@android:color/white" />
+
+    <ImageButton
+        android:id="@+id/deleteRationButton"
+        android:layout_width="109dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/delete" />
 
 </LinearLayout>
