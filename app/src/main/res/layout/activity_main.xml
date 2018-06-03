@@ -99,7 +99,6 @@
         app:layout_constraintVertical_bias="0.98" />
 
     <ImageButton
-        android:id="@+id/allDishBut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
