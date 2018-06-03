@@ -9,11 +9,14 @@ import com.olyapasy.fitnesshelper.entity.SimpleDish;
 import com.olyapasy.fitnesshelper.entity.Sport;
 import com.olyapasy.fitnesshelper.entity.SportType;
 
+import org.apache.commons.collections4.MapUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -38,20 +41,24 @@ public class EntityConverter {
     private static CompositeDish convertToCompositeDish(Cursor cursor, Type type) throws ParseException {
         if (cursor.getCount() != 0) {
             CompositeDish compositeDish;
+            HashMap<SimpleDish, Float> simpleDishHashMap = new HashMap<>();
+
+            if (type.equals(Type.FULL)) {
+                cursor.moveToFirst();
+            }
 
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             int calories = cursor.getInt(3);
             Date date = SimpleDateFormat.getDateInstance(3).parse(cursor.getString(4));
-            Set<SimpleDish> simpleDishHashSet = Collections.emptySet();
 
             if (type.equals(Type.FULL)) {
                 do {
                     SimpleDish simpleDish = convertToSimple(cursor);
-                    simpleDishHashSet.add(simpleDish);
+                    simpleDishHashMap.put(simpleDish, 0.0f);
                 } while (cursor.moveToNext());
             }
-            compositeDish = new CompositeDish(id, name, calories, date, simpleDishHashSet);
+            compositeDish = new CompositeDish(id, name, calories, date, simpleDishHashMap);
 
             return compositeDish;
         }
@@ -96,7 +103,7 @@ public class EntityConverter {
             return abstractDishList;
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     public static List<Ration> convertToRationList(Cursor cursor) throws ParseException {

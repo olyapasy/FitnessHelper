@@ -1,3 +1,6 @@
+
+
+
 CREATE TABLE ration (
 	id integer PRIMARY KEY AUTOINCREMENT,
 	name varchar,
@@ -33,7 +36,8 @@ CREATE TABLE sport_type (
 CREATE TABLE dish_ref (
 	id integer PRIMARY KEY AUTOINCREMENT,
 	composite_dish_id integer,
-	dish_to_consist_of_id integer
+	dish_to_consist_of_id integer,
+	kg_amount integer
 );
 
 CREATE TABLE dish_ration (

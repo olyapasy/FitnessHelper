@@ -1,30 +1,29 @@
 package com.olyapasy.fitnesshelper.view.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
+import com.olyapasy.fitnesshelper.entity.SimpleDish;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class DishAdapter extends BaseAdapter {
-    ArrayList<AbstractDish> dishes;
-    ArrayList<String> names = new ArrayList<String>();
+public class DishAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
+    Map<AbstractDish, Float> dishes;
+    List<AbstractDish> keys;
     Context context;
     LayoutInflater inflater;
 
 
-    public DishAdapter(ArrayList<AbstractDish> dishes, Context context) {
+    public DishAdapter(Map<AbstractDish, Float> dishes, Context context) {
         this.dishes = dishes;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,12 +41,12 @@ public class DishAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return dishes.size();
+        return dishes.keySet().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return dishes.get(position);
+        return keys.get(position);
     }
 
     @Override
@@ -56,58 +55,33 @@ public class DishAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
-        if(convertView == null){
-            holder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
 
-            convertView = inflater.inflate(R.layout.list_item,parent,false);
-            holder.editText = (EditText) convertView.findViewById(R.id.editTextamountKg);
-            convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+
+        if (view == null) {
+            view = inflater.inflate(R.layout.list_item, parent, false);
         }
-        Spinner spinner = (Spinner) convertView.findViewById(R.id.componentSpinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_expandable_list_item_1, getNames());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        keys = new ArrayList<>(dishes.keySet());
+        final SimpleDish simpleDish = (SimpleDish) getItem(position);
+        ((TextView) view.findViewById(R.id.dishName)).setText(simpleDish.getName());
+        ((TextView) view.findViewById(R.id.amountKg))
+                .setText(String.valueOf(dishes.get(simpleDish)));
 
-        holder.editText.setText(String.valueOf(dishes.get(position).getCalories()));
-        holder.editText.addTextChangedListener(new TextWatcher() {
+        view.findViewById(R.id.deleteDishButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                dishes.get(position).setCalories(Long.parseLong(holder.editText.getText().toString()));
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                dishes.remove(simpleDish);
+                notifyDataSetChanged();
             }
         });
 
-        return convertView;
+        return view;
     }
 
-    private class ViewHolder{
-        protected EditText editText;
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
-
-    private List<String> getNames() {
-        List<String> names = new ArrayList<>();
-        for(AbstractDish aDish : dishes){
-            names.add(aDish.getName());
-        }
-
-        return names;
-    }
-
 }

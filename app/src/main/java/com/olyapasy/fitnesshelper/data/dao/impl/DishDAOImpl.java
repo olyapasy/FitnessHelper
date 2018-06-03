@@ -1,4 +1,4 @@
-package com.olyapasy.fitnesshelper.service.dao.impl;
+package com.olyapasy.fitnesshelper.data.dao.impl;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,16 +8,16 @@ import android.database.sqlite.SQLiteDatabase;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
-import com.olyapasy.fitnesshelper.service.dao.DishDAO;
+import com.olyapasy.fitnesshelper.data.dao.DishDAO;
 import com.olyapasy.fitnesshelper.service.util.DataBaseHandler;
 import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
-import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class DishDAOImpl implements DishDAO {
@@ -44,6 +44,7 @@ public class DishDAOImpl implements DishDAO {
 
         try (Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, null,
                 null, null, null, null)) {
+            System.out.println(cursor.getColumnCount());
             abstractDishList = EntityConverter.convertToDishList(cursor);
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,12 +85,15 @@ public class DishDAOImpl implements DishDAO {
             sqLiteDatabase.insert(TABLE_NAME, null, values);
 
             if (abstractDish instanceof CompositeDish) {
-                Set<SimpleDish> setOfSimpleDish = ((CompositeDish) abstractDish).getSetOfSimpleDish();
-                if (CollectionUtils.isNotEmpty(setOfSimpleDish)) {
-                    for (SimpleDish dish : setOfSimpleDish) {
+                Map<SimpleDish, Float> setOfSimpleDish = ((CompositeDish) abstractDish).getSimpleDishMap();
+
+                if (MapUtils.isNotEmpty(setOfSimpleDish)) {
+                    Set<SimpleDish> simpleDishes = setOfSimpleDish.keySet();
+                    for (SimpleDish dish : simpleDishes) {
                         values.clear();
                         values.put("composite_dish_id", abstractDish.getId());
                         values.put("dish_to_consist_of_id", dish.getId());
+                        values.put("kg_amount", setOfSimpleDish.get(dish));
 
                         sqLiteDatabase.insert(TABLE_REF_NAME, null, values);
                     }
@@ -118,14 +122,18 @@ public class DishDAOImpl implements DishDAO {
             if (abstractDish instanceof CompositeDish) {
                 sqLiteDatabase.delete(TABLE_REF_NAME, "composite_dish_id = ?",
                         new String[]{String.valueOf(abstractDish.getId())});
-                Set<SimpleDish> setOfSimpleDish = ((CompositeDish) abstractDish).getSetOfSimpleDish();
+                Map<SimpleDish, Float> setOfSimpleDish = ((CompositeDish) abstractDish).getSimpleDishMap();
 
-                for (SimpleDish dish : setOfSimpleDish) {
-                    values.clear();
-                    values.put("composite_dish_id", abstractDish.getId());
-                    values.put("dish_to_consist_of_id", dish.getId());
+                if (MapUtils.isNotEmpty(setOfSimpleDish)) {
+                    Set<SimpleDish> simpleDishes = setOfSimpleDish.keySet();
+                    for (SimpleDish dish : simpleDishes) {
+                        values.clear();
+                        values.put("composite_dish_id", abstractDish.getId());
+                        values.put("dish_to_consist_of_id", dish.getId());
+                        values.put("kg_amount", setOfSimpleDish.get(dish));
 
-                    sqLiteDatabase.insert(TABLE_REF_NAME, null, values);
+                        sqLiteDatabase.insert(TABLE_REF_NAME, null, values);
+                    }
                 }
             }
         } catch (Exception e) {

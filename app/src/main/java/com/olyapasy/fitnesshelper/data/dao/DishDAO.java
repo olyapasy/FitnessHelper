@@ -1,4 +1,4 @@
-package com.olyapasy.fitnesshelper.service.dao;
+package com.olyapasy.fitnesshelper.data.dao;
 
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 

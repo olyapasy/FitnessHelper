@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.olyapasy.fitnesshelper.R;
+import com.olyapasy.fitnesshelper.data.dao.impl.DishDAOImpl;
+import com.olyapasy.fitnesshelper.entity.SimpleDish;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         rationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "name", 101, new Date()));
+                new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "nameNAME", 01, new Date()));
+                new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "namNAMEe", 121, new Date()));
                 Intent i = new Intent(MainActivity.this,RationActivity.class);
                 startActivity(i);
             }

@@ -1,4 +1,4 @@
-package com.olyapasy.fitnesshelper.service.dao.impl;
+package com.olyapasy.fitnesshelper.data.dao.impl;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.Ration;
-import com.olyapasy.fitnesshelper.service.dao.RationDAO;
+import com.olyapasy.fitnesshelper.data.dao.RationDAO;
 import com.olyapasy.fitnesshelper.service.util.DataBaseHandler;
 import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
