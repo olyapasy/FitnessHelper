@@ -8,9 +8,13 @@ import android.widget.Button;
 
 import com.olyapasy.fitnesshelper.R;
 import com.olyapasy.fitnesshelper.data.dao.impl.DishDAOImpl;
+import com.olyapasy.fitnesshelper.data.dao.impl.RationDAOImpl;
+import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
+import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 
@@ -26,9 +30,15 @@ public class MainActivity extends AppCompatActivity {
         rationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "name", 101, new Date()));
+                SimpleDish simpleDish = new SimpleDish(1, "name", 101, new Date());
+                long l = new DishDAOImpl(getApplicationContext()).create(simpleDish);
                 new DishDAOImpl(getApplicationContext()).create(new SimpleDish(1, "nameNAME", 01, new Date()));
-                new DishDAOImpl(getApplicationContext()).create(new CompositeDish(1, "namNAMEe", 121, new Date(), Collections.<SimpleDish, Float>emptyMap()));
+                long namNAMEe = new DishDAOImpl(getApplicationContext()).create(new CompositeDish(1, "namNAMEe", 121, new Date(), Collections.<SimpleDish, Float>emptyMap()));
+                Ration ration = new Ration(0, "Breakfast", new Date());
+                ration.setListOfDish(Arrays.<AbstractDish>asList(new SimpleDish(l, "name", 101, new Date())
+                ,new SimpleDish(namNAMEe, "name", 101, new Date())));
+
+                new RationDAOImpl(getApplicationContext()).create(ration);
                 Intent i = new Intent(MainActivity.this, RationActivity.class);
                 startActivity(i);
             }

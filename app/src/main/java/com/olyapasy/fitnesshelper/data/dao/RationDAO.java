@@ -10,9 +10,7 @@ public interface RationDAO {
 
     List<Ration> getByDate(Date date);
 
-    int getCaloriesById(long id);
-
-    int getDishAmountById(long id);
+    long getCaloriesById(long id);
 
     void create(Ration ration);
 

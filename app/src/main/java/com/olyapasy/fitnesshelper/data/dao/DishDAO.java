@@ -9,7 +9,7 @@ public interface DishDAO {
 
     AbstractDish getById(long id);
 
-    void create(AbstractDish abstractDish);
+    long create(AbstractDish abstractDish);
 
     void update(AbstractDish abstractDish);
 

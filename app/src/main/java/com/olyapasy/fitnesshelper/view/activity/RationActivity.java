@@ -14,7 +14,6 @@ import com.olyapasy.fitnesshelper.entity.Ration;
 import com.olyapasy.fitnesshelper.view.adapter.RationAdapter;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RationActivity extends AppCompatActivity {
     ArrayList<Ration> rations = new ArrayList<>();
@@ -24,7 +23,6 @@ public class RationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ration);
         ListView rationList = (ListView) findViewById(R.id.rationList);
-        fillData();
         final Button back = (Button) findViewById(R.id.backButton);
         //сделать кнопку назад
         final ImageButton addDish = (ImageButton) findViewById(R.id.addDishButton);
@@ -49,7 +47,7 @@ public class RationActivity extends AppCompatActivity {
             }
         });
 
-        final RationAdapter rationAdapter = new RationAdapter(rations, this);
+        final RationAdapter rationAdapter = new RationAdapter(getApplicationContext());
         rationList.setAdapter(rationAdapter);
         rationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,12 +55,5 @@ public class RationActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void fillData() {
-        rations.add(new Ration(1, "Breakfast", new Date()));
-        rations.add(new Ration(2, "Dinner", new Date()));
-        rations.add(new Ration(3, "Supper", new Date()));
-        rations.add(new Ration(1, "Break", new Date()));
     }
 }

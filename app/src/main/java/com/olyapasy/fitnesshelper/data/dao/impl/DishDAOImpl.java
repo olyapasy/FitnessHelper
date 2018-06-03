@@ -5,10 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.olyapasy.fitnesshelper.data.dao.DishDAO;
 import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
-import com.olyapasy.fitnesshelper.data.dao.DishDAO;
 import com.olyapasy.fitnesshelper.service.util.DataBaseHandler;
 import com.olyapasy.fitnesshelper.service.util.EntityConverter;
 
@@ -76,7 +76,7 @@ public class DishDAOImpl implements DishDAO {
     }
 
     @Override
-    public void create(AbstractDish abstractDish) {
+    public long create(AbstractDish abstractDish) {
         sqLiteDatabase = getWritableDatabase();
 
         try {
@@ -102,11 +102,15 @@ public class DishDAOImpl implements DishDAO {
                     }
                 }
             }
+
+            return insert;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             sqLiteDatabase.close();
         }
+
+        return 0;
     }
 
     @Override

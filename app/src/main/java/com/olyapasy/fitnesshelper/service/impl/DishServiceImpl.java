@@ -9,6 +9,8 @@ import com.olyapasy.fitnesshelper.entity.SimpleDish;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DishServiceImpl {
     private DishDAO dishDAO;
@@ -59,6 +61,17 @@ public class DishServiceImpl {
 
     public void update(AbstractDish abstractDish) {
         dishDAO.update(abstractDish);
+    }
+
+    public long getCompositeDishCalories(Map<SimpleDish, Float> simpleDishMap) {
+        Set<SimpleDish> simpleDishes = simpleDishMap.keySet();
+        long calories = 0;
+
+        for (SimpleDish sDish : simpleDishes) {
+            calories += (sDish.getCalories() / 100) * simpleDishMap.get(sDish);
+        }
+
+        return calories;
     }
 }
 

@@ -16,12 +16,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.olyapasy.fitnesshelper.R;
-import com.olyapasy.fitnesshelper.entity.AbstractDish;
 import com.olyapasy.fitnesshelper.entity.CompositeDish;
 import com.olyapasy.fitnesshelper.entity.SimpleDish;
 import com.olyapasy.fitnesshelper.service.impl.DishServiceImpl;
 import com.olyapasy.fitnesshelper.view.activity.AllDishActivity;
-import com.olyapasy.fitnesshelper.view.activity.DishMealActivity;
 import com.olyapasy.fitnesshelper.view.activity.RationActivity;
 import com.olyapasy.fitnesshelper.view.adapter.DishAdapter;
 
@@ -65,7 +63,10 @@ public class ComplexDishFragment extends Fragment {
                     public void onClick(View v) {
                         dishAdapter.notifyDataSetChanged();
                         String dishNameComplex = inputDishName.getText().toString();
-                        dishService.create(new CompositeDish(0, dishNameComplex, 0,
+
+
+                        dishService.create(new CompositeDish(0, dishNameComplex,
+                                dishService.getCompositeDishCalories(simpleDishHashMap),
                                 new Date(), simpleDishHashMap));
                         getActivity().finish();
                         startActivity(formIntent(activity));
@@ -93,6 +94,8 @@ public class ComplexDishFragment extends Fragment {
                         String dishNameComplex = inputDishName.getText().toString();
                         compositeDish.setSimpleDishMap(simpleDishHashMap);
                         compositeDish.setName(dishNameComplex);
+                        compositeDish.setCalories(dishService
+                                .getCompositeDishCalories(simpleDishHashMap));
                         dishService.update(compositeDish);
 
                         getActivity().finish();
