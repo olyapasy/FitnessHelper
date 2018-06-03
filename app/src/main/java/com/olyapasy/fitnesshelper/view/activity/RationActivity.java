@@ -65,7 +65,7 @@ public class RationActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putLong("id",ration.getId());
                 rationEditFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new RationEditFragment()).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, rationEditFragment).commit();
 
             }
         });
