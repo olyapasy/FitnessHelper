@@ -42,6 +42,7 @@
         android:textSize="32sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,11 +58,11 @@
         android:textSize="21sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.679"
+        app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.596" />
 
     <TextView
         android:id="@+id/totalCounter"
@@ -78,60 +79,24 @@
         app:layout_constraintTop_toBottomOf="@+id/totalTitle"
         app:layout_constraintVertical_bias="0.14" />
 
-    <EditText
-        android:id="@+id/runningKm"
-        android:layout_width="55dp"
-        android:layout_height="30dp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
-        app:layout_constraintEnd_toStartOf="@+id/km"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551" />
-
-    <EditText
-        android:id="@+id/workoutMin"
-        android:layout_width="55dp"
-        android:layout_height="23dp"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
-        app:layout_constraintVertical_bias="0.784" />
-
-    <EditText
-        android:id="@+id/runningMin"
-        android:layout_width="55dp"
-        android:layout_height="30dp"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
-        app:layout_constraintVertical_bias="0.403" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/totalTitle"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
-        app:layout_constraintVertical_bias="0.628">
+        app:layout_constraintVertical_bias="0.488">
 
         <CheckBox
             android:id="@+id/runningCheckBox"
             android:layout_width="98dp"
             android:layout_height="30dp"
-            android:background="@android:color/white"
+            android:background="@android:color/transparent"
             android:text="Running"
+            android:textColor="@android:color/white"
             tools:layout_editor_absoluteX="37dp"
             tools:layout_editor_absoluteY="119dp" />
 
@@ -139,26 +104,36 @@
             android:id="@+id/workoutCheckBox"
             android:layout_width="99dp"
             android:layout_height="26dp"
-            android:layout_marginTop="50dp"
-            android:background="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
             android:text="Workout"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+        <CheckBox
+            android:id="@+id/swimmingCheckBox2"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:text="Swimming"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+        <CheckBox
+            android:id="@+id/cycleCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:text="Cycle"
+            android:textColor="@android:color/white"
             tools:layout_editor_absoluteX="37dp"
             tools:layout_editor_absoluteY="194dp" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/km"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="km"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
 
     <Button
         android:id="@+id/backButton"
@@ -167,47 +142,228 @@
         android:background="@android:color/transparent"
         android:text="Back"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/breakfastTitleText"
         app:layout_constraintEnd_toStartOf="@+id/rationTitleText"
         app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.039" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <TextView
+        android:id="@+id/totalAmountSport"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="49dp"
+        android:text="TextView"
+        android:textColor="#ffff"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundCalendar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalTitle"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="48dp"
+        android:layout_height="128dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/totalTitle"
-        app:layout_constraintEnd_toStartOf="@+id/km"
-        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.712">
+
+        <TextView
+            android:id="@+id/sportKmRunTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/sportKmWorkoutTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="2dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/sportKmSwimmingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="7dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/sportKmCycleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="39dp"
+        android:layout_height="128dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.54">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="min" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="2dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="min" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="7dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="min" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="min" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="39dp"
+        android:layout_height="128dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.712">
+
+        <TextView
+            android:id="@+id/kmtextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="km" />
+
+        <TextView
+            android:id="@+id/kmtextview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="2dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="km" />
+
+        <TextView
+            android:id="@+id/kmtextview3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="7dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="km" />
+
+        <TextView
+            android:id="@+id/kmtextview4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="km" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="48dp"
+        android:layout_height="128dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/totalTitle"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
-        app:layout_constraintVertical_bias="0.613">
+        app:layout_constraintVertical_bias="0.52">
 
         <TextView
-            android:id="@+id/minutes1"
+            android:id="@+id/sportMinRuningTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="minutes"
+            android:layout_marginBottom="15dp"
+            android:text="TextView"
             android:textColor="@android:color/white"
-            tools:layout_editor_absoluteX="299dp"
-            tools:layout_editor_absoluteY="194dp" />
+            tools:text="0" />
 
         <TextView
-            android:id="@+id/minutes2"
+            android:id="@+id/sportMinWorkoutTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-            android:text="minutes"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="2dp"
+            android:text="TextView"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/minutes1"
-            app:layout_constraintEnd_toStartOf="@+id/km"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/runningCheckBox"
-            app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
-            app:layout_constraintVertical_bias="0.513" />
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/sportMinSwimmingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="7dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/sportMinCycleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            tools:text="0" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

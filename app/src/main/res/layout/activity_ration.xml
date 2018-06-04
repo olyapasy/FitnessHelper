@@ -158,14 +158,15 @@
 
     <ImageButton
         android:id="@+id/allDishBut"
-        android:layout_width="55dp"
-        android:layout_height="51dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/backgroundCalendar"
         app:layout_constraintEnd_toStartOf="@+id/backgroundCalendar"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
         app:layout_constraintTop_toBottomOf="@+id/backgroundCalendar"
+        app:layout_constraintVertical_bias="0.511"
         app:srcCompat="@drawable/ic_restaurant_menu_black_24dp" />
 
     <ListView

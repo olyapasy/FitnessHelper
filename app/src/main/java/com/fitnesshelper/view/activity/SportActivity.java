@@ -13,15 +13,15 @@ public class SportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sport);
 
-        EditText runningM = (EditText) findViewById(R.id.runningMin);
-        EditText runningKm = (EditText) findViewById(R.id.runningKm);
-        EditText workountM = (EditText) findViewById(R.id.workoutMin);
-
-        String runM = runningM.getText().toString();
-        String runKm = runningKm.getText().toString();
-        String workout = workountM.getText().toString();
-        runningM.setText(runM);
-        runningKm.setText(runKm);
-        workountM.setText(workout);
+//        EditText runningM = (EditText) findViewById(R.id.runningMin);
+//        EditText runningKm = (EditText) findViewById(R.id.runningKm);
+//        EditText workountM = (EditText) findViewById(R.id.workoutMin);
+//
+//        String runM = runningM.getText().toString();
+//        String runKm = runningKm.getText().toString();
+//        String workout = workountM.getText().toString();
+//        runningM.setText(runM);
+//        runningKm.setText(runKm);
+//        workountM.setText(workout);
     }
 }

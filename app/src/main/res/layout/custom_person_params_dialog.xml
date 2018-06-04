@@ -2,9 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="#384B5F"
-    android:layout_height="250dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout2"
@@ -24,8 +23,8 @@
             android:id="@+id/ageInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Age" />
+            android:hint="Age"
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -46,8 +45,8 @@
             android:id="@+id/heightInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Height" />
+            android:hint="Height"
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -66,9 +65,9 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/weightInput"
-            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Weight" />
+            android:hint="Weight"
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 </android.support.constraint.ConstraintLayout>

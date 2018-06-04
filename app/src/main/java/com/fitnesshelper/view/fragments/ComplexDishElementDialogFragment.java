@@ -2,6 +2,8 @@ package com.fitnesshelper.view.fragments;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -35,6 +37,7 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<SimpleDish> allSimpleDish = dishService.getAllSimpleDish();
         List<String> dishNames = dishService.getAllDishNames(allSimpleDish);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();

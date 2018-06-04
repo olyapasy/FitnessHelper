@@ -1,20 +1,25 @@
 package com.fitnesshelper.view.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 
 import com.fitnesshelper.entity.DishType;
 import com.fitnesshelper.R;
 import com.fitnesshelper.view.fragments.ComplexDishFragment;
 import com.fitnesshelper.view.fragments.SimpleDishFragment;
 
-public class DishMealActivity extends FragmentActivity {
+public class DishMealActivity extends AppCompatActivity {
     Fragment dishFragment;
     Fragment fragment;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,10 @@ public class DishMealActivity extends FragmentActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.output, fragment);
         transaction.commit();
+
+        if (getSupportActionBar() != null) {
+            actionBar = getSupportActionBar();
+        }
     }
 
     @Override
