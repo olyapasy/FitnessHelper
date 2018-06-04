@@ -48,7 +48,7 @@ public class AllDishActivity extends AppCompatActivity {
         super.onBackPressed();
 
         finish();
-        Intent intent = new Intent(AllDishActivity.this, RationActivity.class);
+        Intent intent = new Intent(AllDishActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

@@ -1,7 +1,6 @@
 package com.fitnesshelper.view.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,15 +15,11 @@ import android.widget.Toast;
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.Ration;
-import com.fitnesshelper.entity.SimpleDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
 import com.fitnesshelper.service.impl.RationServiceImpl;
-import com.fitnesshelper.view.activity.RationActivity;
 import com.fitnesshelper.view.adapter.EditRationAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -77,7 +72,8 @@ public class RationFragment extends Fragment {
                             ration.setListOfDish(listOfDish);
                             rationService.createRation(ration);
 
-                            getActivity().onBackPressed();
+                            getFragmentManager().beginTransaction().remove(RationFragment.this).commit();
+                            getActivity().recreate();
                         }
                     }
                 });
@@ -101,7 +97,8 @@ public class RationFragment extends Fragment {
                             ration.setListOfDish(listOfDish);
                             rationService.updateRation(ration);
 
-                            getActivity().onBackPressed();
+                            getFragmentManager().beginTransaction().remove(RationFragment.this).commit();
+                            getActivity().recreate();
                         }
                     }
                 });
