@@ -8,14 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.view.adapter.AllDishAdapter;
-import com.fitnesshelper.R;
 
 public class AllDishActivity extends AppCompatActivity {
-    android.support.v4.app.Fragment dishFragment;
     ListView listView;
-    private AllDishAdapter allDishAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class AllDishActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        allDishAdapter = new AllDishAdapter(getApplicationContext());
+        AllDishAdapter allDishAdapter = new AllDishAdapter(getApplicationContext());
         allDishAdapter.notifyDataSetChanged();
         listView.setAdapter(allDishAdapter);
     }
@@ -48,7 +46,7 @@ public class AllDishActivity extends AppCompatActivity {
         super.onBackPressed();
 
         finish();
-        Intent intent = new Intent(AllDishActivity.this, MainActivity.class);
+        Intent intent = new Intent(AllDishActivity.this, RationActivity.class);
         startActivity(intent);
     }
 }

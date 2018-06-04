@@ -4,11 +4,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +20,6 @@ public class SportDialogFragment extends DialogFragment {
     private TextView min;
     private TextView km;
     private CheckBox check;
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -45,14 +44,19 @@ public class SportDialogFragment extends DialogFragment {
                 String minutesValue = dialogMinutes.getText().toString();
                 String kmValue = dialogKm.getText().toString();
 
-                if (minutesValue.isEmpty() || kmValue.isEmpty()) {
-                    Toast toast = Toast.makeText(getActivity(), "Fill all fields",
+                if (minutesValue.isEmpty() && kmValue.isEmpty()) {
+                    Toast toast = Toast.makeText(getActivity(), "Fill at least one field",
                             Toast.LENGTH_SHORT);
                     toast.show();
                     check.setChecked(false);
                 } else {
-                    min.setText(minutesValue);
-                    km.setText(kmValue);
+                    if (minutesValue.isEmpty()) {
+                        min.setText("0");
+                        km.setText(kmValue);
+                    } else {
+                        min.setText(minutesValue);
+                        km.setText("0");
+                    }
 
                 }
             }

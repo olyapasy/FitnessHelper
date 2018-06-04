@@ -127,7 +127,7 @@ public class EntityConverter {
             return rationList;
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     public static Ration convertToRation(Cursor cursor) throws ParseException {

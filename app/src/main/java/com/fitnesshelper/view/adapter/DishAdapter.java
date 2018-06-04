@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.SimpleDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
-import com.fitnesshelper.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ public class DishAdapter extends BaseAdapter {
     private Map<SimpleDish, Float> dishes;
     private List<SimpleDish> keys;
     private LayoutInflater inflater;
-
 
     public DishAdapter(Map<SimpleDish, Float> dishes, Context context, DishServiceImpl dishService) {
         this.dishes = dishes;

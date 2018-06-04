@@ -9,9 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitnesshelper.R;
-import com.fitnesshelper.data.dao.RationDAO;
-import com.fitnesshelper.data.dao.impl.RationDAOImpl;
 import com.fitnesshelper.entity.Ration;
+import com.fitnesshelper.service.DishService;
 import com.fitnesshelper.service.impl.DishServiceImpl;
 import com.fitnesshelper.service.impl.RationServiceImpl;
 
@@ -23,11 +22,12 @@ public class RationAdapter extends BaseAdapter {
     private List<Ration> rations;
     private LayoutInflater inflater;
     private RationServiceImpl rationService;
+    private DishService dishService;
 
     public RationAdapter(Context context, TextView totalAmountTextView) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rationService = new RationServiceImpl(context);
-
+        dishService = new DishServiceImpl(context);
         this.rations = rationService.getRationByDate(new Date());
         this.totalAmountTextView = totalAmountTextView;
     }
@@ -59,7 +59,7 @@ public class RationAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.rationName)).setText(ration.getName());
         ((TextView) view.findViewById(R.id.amountOfDishesRation)).setText(String.valueOf(ration.getListOfDish()
                 .size()));
-        ((TextView) view.findViewById(R.id.amountOfKcalRation)).setText(String.valueOf(DishServiceImpl
+        ((TextView) view.findViewById(R.id.amountOfKcalRation)).setText(String.valueOf(dishService
                 .getDishCalories(ration.getListOfDish())));
 
         view.findViewById(R.id.deleteRationButton).setOnClickListener(new View.OnClickListener() {
@@ -80,11 +80,11 @@ public class RationAdapter extends BaseAdapter {
         return view;
     }
 
-    public long getTotalAmountOfCal() {
+    private long getTotalAmountOfCal() {
         long amountOfCAl = 0;
 
         for (Ration ration : rations) {
-            amountOfCAl += DishServiceImpl.getDishCalories(ration.getListOfDish());
+            amountOfCAl += dishService.getDishCalories(ration.getListOfDish());
         }
 
         return amountOfCAl;

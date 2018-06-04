@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
-import com.fitnesshelper.entity.Ration;
 
 import java.util.List;
 

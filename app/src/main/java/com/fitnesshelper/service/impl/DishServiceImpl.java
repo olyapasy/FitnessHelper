@@ -6,6 +6,7 @@ import com.fitnesshelper.data.dao.DishDAO;
 import com.fitnesshelper.data.dao.impl.DishDAOImpl;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.SimpleDish;
+import com.fitnesshelper.service.DishService;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class DishServiceImpl {
+public class DishServiceImpl implements DishService {
     private DishDAO dishDAO;
 
     public DishServiceImpl(Context context) {
@@ -76,7 +77,7 @@ public class DishServiceImpl {
         return calories;
     }
 
-    public static long getDishCalories(List<AbstractDish> abstractDishes) {
+    public long getDishCalories(List<AbstractDish> abstractDishes) {
         long calories = 0;
         if (CollectionUtils.isNotEmpty(abstractDishes)) {
             for (AbstractDish sDish : abstractDishes) {
@@ -93,6 +94,5 @@ public class DishServiceImpl {
     public AbstractDish getAnyDish() {
         return dishDAO.getFirst();
     }
-
 }
 

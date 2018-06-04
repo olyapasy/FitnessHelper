@@ -5,15 +5,21 @@ import android.content.Context;
 import com.fitnesshelper.data.dao.RationDAO;
 import com.fitnesshelper.data.dao.impl.RationDAOImpl;
 import com.fitnesshelper.entity.Ration;
+import com.fitnesshelper.service.DishService;
+import com.fitnesshelper.service.RationService;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
 
-public class RationServiceImpl {
+public class RationServiceImpl implements RationService {
     RationDAO rationDAO;
+    DishService dishService;
 
     public RationServiceImpl(Context context) {
         rationDAO = new RationDAOImpl(context);
+        dishService = new DishServiceImpl(context);
     }
 
     public Ration getRationById(long id) {
@@ -40,8 +46,10 @@ public class RationServiceImpl {
         List<Ration> rationByDate = getRationByDate(date);
         long amountOfCAl = 0;
 
-        for (Ration ration : rationByDate) {
-            amountOfCAl += DishServiceImpl.getDishCalories(ration.getListOfDish());
+        if (CollectionUtils.isNotEmpty(rationByDate)) {
+            for (Ration ration : rationByDate) {
+                amountOfCAl += dishService.getDishCalories(ration.getListOfDish());
+            }
         }
 
         return amountOfCAl;

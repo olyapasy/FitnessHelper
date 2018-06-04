@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,13 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.CompositeDish;
 import com.fitnesshelper.entity.SimpleDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
 import com.fitnesshelper.view.activity.AllDishActivity;
 import com.fitnesshelper.view.activity.RationActivity;
 import com.fitnesshelper.view.adapter.DishAdapter;
-import com.fitnesshelper.R;
 
 import java.util.Date;
 import java.util.HashMap;

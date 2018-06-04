@@ -57,6 +57,8 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
                     editor.putString("myHeight", heightValue);
                     editor.putString("myWeight", weightValue);
                     editor.commit();
+
+                    getActivity().recreate();
                 }
             }
         });

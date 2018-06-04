@@ -2,8 +2,6 @@ package com.fitnesshelper.view.fragments;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -13,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.SimpleDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
 import com.fitnesshelper.view.adapter.DishAdapter;
-import com.fitnesshelper.R;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +36,6 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<AbstractDish> allSimpleDish = dishService.getAllSimpleDish();
         List<String> dishNames = dishService.getAllDishNames(allSimpleDish);
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -62,7 +59,6 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
                         simpleDish = (SimpleDish) sDish;
                     }
                 }
-
                 fromAdapter.put(simpleDish, Float.parseFloat(amount));
                 dishAdapter.notifyDataSetChanged();
             }

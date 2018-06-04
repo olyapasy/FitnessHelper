@@ -66,11 +66,13 @@ public class RationDAOImpl implements RationDAO {
         try {
             rationList = EntityConverter.convertToRationList(cursor);
 
-            for (Ration ration : rationList) {
-                cursor = sqLiteDatabase.rawQuery(SELECT_DISH_BY_RATION_ID,
-                        new String[]{String.valueOf(ration.getId())});
-                List<AbstractDish> abstractDishList = EntityConverter.convertToDishList(cursor);
-                ration.setListOfDish(abstractDishList);
+            if (CollectionUtils.isNotEmpty(rationList)) {
+                for (Ration ration : rationList) {
+                    cursor = sqLiteDatabase.rawQuery(SELECT_DISH_BY_RATION_ID,
+                            new String[]{String.valueOf(ration.getId())});
+                    List<AbstractDish> abstractDishList = EntityConverter.convertToDishList(cursor);
+                    ration.setListOfDish(abstractDishList);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

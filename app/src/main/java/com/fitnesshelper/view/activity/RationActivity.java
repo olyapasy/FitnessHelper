@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class RationActivity extends AppCompatActivity {
-    ArrayList<Ration> rations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +27,10 @@ public class RationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ration);
         ListView rationList = (ListView) findViewById(R.id.rationList);
         TextView totalAmountTextView = findViewById(R.id.totalAmountValue);
+
         final Button back = (Button) findViewById(R.id.backButton);
         //сделать кнопку назад
+
         final ImageButton addDish = (ImageButton) findViewById(R.id.addDishButton);
         final ImageButton addRation = (ImageButton) findViewById(R.id.addRationButton);
         final ImageButton allDishButton = (ImageButton) findViewById(R.id.allDishBut);

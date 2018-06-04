@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.SimpleDish;
@@ -29,15 +29,11 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  */
 public class SimpleDishFragment extends Fragment {
-    ComplexDishFragment complexDishFragment;
-    private EditText name;
     private EditText kcal;
     DishServiceImpl dishService;
 
     public SimpleDishFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,14 +91,15 @@ public class SimpleDishFragment extends Fragment {
 
                         String dishName = inputDishName.getText().toString();
                         String amountKcal = inputAmountOfKcal.getText().toString();
-                        dishService.create(new SimpleDish(0, dishName,
-                                Integer.parseInt(amountKcal), new Date()));
-
-                        getActivity().finish();
-//                        startActivity(formIntent(activity));
+                        if (dishName.isEmpty() || amountKcal.isEmpty()) {
+                           Toast.makeText(getActivity(), "Fill all fields",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            dishService.create(new SimpleDish(0, dishName,
+                                    Integer.parseInt(amountKcal), new Date()));
+                            getActivity().onBackPressed();
+                        }
                     }
-
-
                 });
             } else {
                 long id = extras.getLong("id");
@@ -111,18 +108,23 @@ public class SimpleDishFragment extends Fragment {
                 inputDishName.setText(simpleDish.getName());
                 inputAmountOfKcal.setText(String.valueOf(simpleDish.getCalories()));
 
-
                 addDish.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String dishName = inputDishName.getText().toString();
+                        String amountKcal = inputAmountOfKcal.getText().toString();
 
-                        simpleDish.setName(inputDishName.getText().toString());
-                        simpleDish.setCalories(Integer.parseInt(inputAmountOfKcal.getText()
-                                .toString()));
-                        dishService.update(simpleDish);
+                        if (dishName.isEmpty() || amountKcal.isEmpty()) {
+                            Toast.makeText(getActivity(), "Fill all fields",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            simpleDish.setName(dishName);
+                            simpleDish.setCalories(Integer.parseInt(amountKcal));
+                            dishService.update(simpleDish);
 
-                        getActivity().finish();
-                        startActivity(formIntent(activity));
+                            getActivity().finish();
+                            startActivity(formIntent(activity));
+                        }
                     }
 
 
@@ -151,18 +153,5 @@ public class SimpleDishFragment extends Fragment {
 
         Intent intent = new Intent(getActivity(), _class);
         return intent;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-//    public void setMenuFragment(ComplexDishFragment complexDishFragment) {
-//        this.complexDishFragment = complexDishFragment;
-//    }
-
-    public static boolean isNumber(String str) {
-        return false;
     }
 }

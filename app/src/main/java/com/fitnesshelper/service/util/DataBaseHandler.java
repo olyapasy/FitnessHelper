@@ -14,7 +14,6 @@ import java.io.InputStream;
 public class DataBaseHandler extends SQLiteOpenHelper {
     private final Context context;
 
-
     public DataBaseHandler(Context context) {
         super(context, "fitness_helper_db", null, 1);
         this.context = context;

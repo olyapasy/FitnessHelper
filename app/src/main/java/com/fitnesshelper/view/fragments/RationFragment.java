@@ -33,9 +33,7 @@ public class RationFragment extends Fragment {
     List<AbstractDish> listOfDish;
 
     public RationFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -77,7 +75,6 @@ public class RationFragment extends Fragment {
                         }
                     }
                 });
-
             } else {
                 long id = bundle.getLong("id");
 

@@ -52,18 +52,19 @@ public class AllDishAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.dishNameAllDish)).setText(dish.getName());
         ((TextView) view.findViewById(R.id.kcalAmountAllDish))
                 .setText(String.valueOf(dish.getCalories()));
+        final boolean b = dishService.chekIfDishIsInUse(dish.getId());
+
 
         view.findViewById(R.id.deleteDishButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean b = dishService.chekIfDishIsInUse(dish.getId());
-                System.out.println(b);
-                if (b == false && getCount() > 1) {
+                boolean check = check(dish);
+                if (check && getCount() > 1) {
                     dishArrayList.remove(dish);
                     notifyDataSetChanged();
                     dishService.remove(dish);
                 } else {
-                    if (b == false) {
+                    if (!check) {
                         Toast.makeText(v.getContext(), "The dish is used by ration or other dish",
                                 Toast.LENGTH_SHORT).show();
                     } else {
@@ -75,5 +76,9 @@ public class AllDishAdapter extends BaseAdapter {
         });
 
         return view;
+    }
+
+    private boolean check(AbstractDish dish) {
+        return !dishService.chekIfDishIsInUse(dish.getId());
     }
 }

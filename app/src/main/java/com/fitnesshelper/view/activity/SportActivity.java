@@ -2,15 +2,12 @@ package com.fitnesshelper.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.Sport;
-import com.fitnesshelper.entity.SportType;
 import com.fitnesshelper.view.fragments.SportDialogFragment;
 
 public class SportActivity extends AppCompatActivity {
@@ -30,7 +27,6 @@ public class SportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sport);
 
-        fillData();
         runMin = (TextView) findViewById(R.id.sportMinRuningTextView);
         workoutMin = (TextView) findViewById(R.id.sportMinWorkoutTextView);
         swimMin = (TextView) findViewById(R.id.sportMinSwimmingTextView);
@@ -41,28 +37,8 @@ public class SportActivity extends AppCompatActivity {
         swimKm = (TextView) findViewById(R.id.sportKmSwimmingTextView);
         cycleKm = (TextView) findViewById(R.id.sportKmCycleTextView);
 
-//        runMin.setText(sport.getMeasureValue());
-//        runMin.setText(sport.getMeasureValue());
-
-
-//        EditText runningM = (EditText) findViewById(R.id.runningMin);
-//        EditText runningKm = (EditText) findViewById(R.id.runningKm);
-//        EditText workountM = (EditText) findViewById(R.id.workoutMin);
-//
-//        String runM = runningM.getText().toString();
-//        String runKm = runningKm.getText().toString();
-//        String workout = workountM.getText().toString();
-//        runningM.setText(runM);
-//        runningKm.setText(runKm);
-//        workountM.setText(workout);
-
-
-        // do something else
 
     }
-
-
-
 
     public void itemClickedRun(View view) {
         CheckBox checkRun = (CheckBox) findViewById(R.id.runningCheckBox);
@@ -88,6 +64,7 @@ public class SportActivity extends AppCompatActivity {
             workoutKm.setText("0");
         }
     }
+
     public void itemClickedSwim(View view) {
         CheckBox checkSwim = (CheckBox) findViewById(R.id.swimmingCheckBox2);
 
@@ -113,8 +90,5 @@ public class SportActivity extends AppCompatActivity {
             cycleKm.setText("0");
         }
 
-    }
-
-    public void fillData() {
     }
 }
