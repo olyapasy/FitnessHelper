@@ -13,6 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitnesshelper.R;
+import com.fitnesshelper.entity.Sport;
+import com.fitnesshelper.entity.SportType;
+import com.fitnesshelper.service.impl.SportServiceImpl;
+
+import java.util.Date;
 
 public class SportDialogFragment extends DialogFragment {
     private EditText dialogMinutes;
@@ -20,6 +25,8 @@ public class SportDialogFragment extends DialogFragment {
     private TextView min;
     private TextView km;
     private CheckBox check;
+    private SportType.Existed sportType;
+    private Sport sport;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class SportDialogFragment extends DialogFragment {
         final View view = inflater.inflate(R.layout.sport_dialog, null);
         dialogMinutes = view.findViewById(R.id.minutesInputDialog);
         dialogKm = view.findViewById(R.id.kmInputDialog);
+        final SportServiceImpl sportService = new SportServiceImpl(getActivity().getApplicationContext());
 
         builder.setView(view)
                 .setTitle("Enter values")
@@ -45,7 +53,7 @@ public class SportDialogFragment extends DialogFragment {
                 String kmValue = dialogKm.getText().toString();
 
                 if (minutesValue.isEmpty() && kmValue.isEmpty()) {
-                    Toast toast = Toast.makeText(getActivity(), "Fill at least one field",
+                    Toast toast = Toast.makeText(getActivity(), "Fill one field",
                             Toast.LENGTH_SHORT);
                     toast.show();
                     check.setChecked(false);
@@ -53,11 +61,16 @@ public class SportDialogFragment extends DialogFragment {
                     if (minutesValue.isEmpty()) {
                         min.setText("0");
                         km.setText(kmValue);
+                        sport = new Sport(0, new SportType(sportType), Sport.Measure.METERS.getName(),
+                                Integer.parseInt(kmValue), new Date());
+
                     } else {
                         min.setText(minutesValue);
                         km.setText("0");
+                        sport = new Sport(0, new SportType(sportType), Sport.Measure.MINUTES.getName(),
+                                Integer.parseInt(minutesValue), new Date());
                     }
-
+                    sportService.createSport(sport);
                 }
             }
         });
@@ -65,9 +78,10 @@ public class SportDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    public void setcheck(CheckBox check, TextView min, TextView km) {
+    public void setcheck(CheckBox check, TextView min, TextView km, SportType.Existed sportType) {
         this.check = check;
         this.min = min;
         this.km = km;
+        this.sportType = sportType;
     }
 }

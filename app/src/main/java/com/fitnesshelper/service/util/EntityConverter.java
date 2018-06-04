@@ -145,7 +145,7 @@ public class EntityConverter {
         return null;
     }
 
-    public static Sport convertToSport(Cursor cursor, List<SportType> sportTypeList) throws ParseException {
+    public static Sport convertToSport(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
             Sport sport;
             SportType sportType = null;
@@ -155,11 +155,15 @@ public class EntityConverter {
             int measureValue = cursor.getInt(3);
             Date date = SimpleDateFormat.getDateInstance(3).parse(cursor.getString(4));
 
-            for (SportType sType : sportTypeList) {
-                if (sType.getId() == cursor.getInt(1)) {
-                    sportType = sType;
-                    break;
-                }
+            int cursorInt = cursor.getInt(1);
+            if (SportType.Existed.RUNNING.getId() == cursorInt) {
+                sportType = new SportType(SportType.Existed.RUNNING);
+            } else if (SportType.Existed.SWIMMING.getId() == cursorInt) {
+                sportType = new SportType(SportType.Existed.SWIMMING);
+            } else if (SportType.Existed.WORKOUT.getId() == cursorInt) {
+                sportType = new SportType(SportType.Existed.WORKOUT);
+            } else if (SportType.Existed.CYCLING.getId() == cursorInt) {
+                sportType = new SportType(SportType.Existed.CYCLING);
             }
 
             sport = new Sport(id, sportType, measureType, measureValue, date);
@@ -170,14 +174,14 @@ public class EntityConverter {
         return null;
     }
 
-    public static List<Sport> convertToSportList(Cursor cursor, List<SportType> sportTypeList) throws ParseException {
+    public static List<Sport> convertToSportList(Cursor cursor) throws ParseException {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             Sport sport;
             List<Sport> sportList = new ArrayList<>();
 
             do {
-                sport = convertToSport(cursor, sportTypeList);
+                sport = convertToSport(cursor);
                 sportList.add(sport);
             } while (cursor.moveToNext());
 

@@ -20,11 +20,9 @@ public class SportDAOImpl implements SportDAO {
     private DataBaseHandler dataBaseHandler;
     private SQLiteDatabase sqLiteDatabase;
     private final String TABLE_NAME = "sport";
-    private List<SportType> sportTypeList;
 
     public SportDAOImpl(Context context) {
         this.dataBaseHandler = new DataBaseHandler(context);
-        sportTypeList = new SportTypeDAOImpl(context).getAll();
     }
 
     public Sport getById(long id) {
@@ -33,7 +31,7 @@ public class SportDAOImpl implements SportDAO {
 
         try (Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, "id = ?",
                 new String[]{String.valueOf(id)}, null, null, null)) {
-            sport = EntityConverter.convertToSport(cursor, sportTypeList);
+            sport = EntityConverter.convertToSport(cursor);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,7 +49,7 @@ public class SportDAOImpl implements SportDAO {
                 new String[]{formattedDate}, null, null, null);
 
         try {
-            sportList = EntityConverter.convertToSportList(cursor, sportTypeList);
+            sportList = EntityConverter.convertToSportList(cursor);
         } catch (ParseException e) {
             e.printStackTrace();
         } finally {

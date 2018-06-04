@@ -12,21 +12,23 @@ import com.fitnesshelper.R;
 import com.fitnesshelper.entity.SimpleDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
 import com.fitnesshelper.service.impl.RationServiceImpl;
+import com.fitnesshelper.service.impl.SportServiceImpl;
 import com.fitnesshelper.view.fragments.PersonParamsDialogFragment;
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    String myWeight;
-    String myHeight;
-    String myAge;
+    private String myWeight;
+    private String myHeight;
+    private String myAge;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
+        sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
         myAge = sharedPref.getString("myAge", null);
         if (myAge == null) {
             openDialog();
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openDialog() {
         PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
-        personParamsDialogFragment.setSharedPreferences(getSharedPreferences("mySettings", MODE_PRIVATE));
+        personParamsDialogFragment.setSharedPreferences(sharedPref);
         personParamsDialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         long totalAmountOfCal = new RationServiceImpl(getApplicationContext()).getTotalAmountOfCal(new Date());
         ((TextView) findViewById(R.id.enterPlusKcal)).setText(String.valueOf(totalAmountOfCal));
 
-        long sportAmountOfCal;
-        ((TextView) findViewById(R.id.enterMinusKcal)).setText("");
+        long sportAmountOfCal = new SportServiceImpl(getApplicationContext()).getSportCalories(new Date());
+        ((TextView) findViewById(R.id.enterMinusKcal)).setText(String.valueOf(sportAmountOfCal));
     }
 }

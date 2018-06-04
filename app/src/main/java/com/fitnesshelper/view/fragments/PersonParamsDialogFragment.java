@@ -69,7 +69,7 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
     private void showFragment() {
         PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
         personParamsDialogFragment.setSharedPreferences(sharedPreferences);
-        personParamsDialogFragment.show(getFragmentManager(), "dialog");
+        personParamsDialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
     }
 
 }

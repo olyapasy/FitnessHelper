@@ -86,4 +86,24 @@ public class Sport {
                 ", date=" + date +
                 '}';
     }
+
+    public enum Measure {
+        METERS(1, "Meters"), MINUTES(2, "Minutes");
+
+        private long id;
+        private String name;
+
+        Measure(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }
