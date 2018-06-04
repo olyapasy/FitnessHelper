@@ -9,7 +9,7 @@
 
     <!--<fragment-->
         <!--android:id="@+id/output2"-->
-        <!--android:name="com.olyapasy.fitnesshelper.view.fragments.SimpleDishFragment"-->
+        <!--android:name="com.fitnesshelper.view.fragments.SimpleDishFragment"-->
         <!--android:layout_width="0dp"-->
         <!--android:layout_height="0dp"-->
         <!--android:layout_marginTop="8dp"-->

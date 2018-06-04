@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/output"
-        android:name="com.olyapasy.fitnesshelper.view.fragments.SimpleDishFragment"
+        android:name="com.fitnesshelper.view.fragments.SimpleDishFragment"
         android:layout_width="388dp"
         android:layout_height="465dp"
         app:layout_constraintBottom_toBottomOf="parent"
