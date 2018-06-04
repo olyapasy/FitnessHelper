@@ -15,6 +15,14 @@ import com.fitnesshelper.view.fragments.SportDialogFragment;
 public class SportActivity extends AppCompatActivity {
     Sport sport;
     Sport type;
+    TextView runMin;
+    TextView workoutMin;
+    TextView swimMin;
+    TextView cycleMin;
+    TextView runKm;
+    TextView workoutKm;
+    TextView swimKm;
+    TextView cycleKm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,22 +30,18 @@ public class SportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sport);
 
         fillData();
-        TextView runMin = (TextView) findViewById(R.id.sportMinRuningTextView);
-        TextView workoutMin = (TextView) findViewById(R.id.sportMinWorkoutTextView);
-        TextView swimMin = (TextView) findViewById(R.id.sportMinSwimmingTextView);
-        TextView cycleMin = (TextView) findViewById(R.id.sportMinCycleTextView);
+        runMin = (TextView) findViewById(R.id.sportMinRuningTextView);
+        workoutMin = (TextView) findViewById(R.id.sportMinWorkoutTextView);
+        swimMin = (TextView) findViewById(R.id.sportMinSwimmingTextView);
+        cycleMin = (TextView) findViewById(R.id.sportMinCycleTextView);
 
-        TextView runKm = (TextView) findViewById(R.id.sportKmRunTextView);
-        TextView workoutKm = (TextView) findViewById(R.id.sportKmWorkoutTextView);
-        TextView swimKm = (TextView) findViewById(R.id.sportKmSwimmingTextView);
-        TextView cycleKm = (TextView) findViewById(R.id.sportKmCycleTextView);
+        runKm = (TextView) findViewById(R.id.sportKmRunTextView);
+        workoutKm = (TextView) findViewById(R.id.sportKmWorkoutTextView);
+        swimKm = (TextView) findViewById(R.id.sportKmSwimmingTextView);
+        cycleKm = (TextView) findViewById(R.id.sportKmCycleTextView);
 
 //        runMin.setText(sport.getMeasureValue());
 //        runMin.setText(sport.getMeasureValue());
-
-
-
-
 
 
 //        EditText runningM = (EditText) findViewById(R.id.runningMin);
@@ -52,7 +56,6 @@ public class SportActivity extends AppCompatActivity {
 //        workountM.setText(workout);
 
 
-
         // do something else
 
     }
@@ -62,12 +65,17 @@ public class SportActivity extends AppCompatActivity {
         CheckBox checkWorkout = (CheckBox) findViewById(R.id.workoutCheckBox);
         CheckBox checkSwim = (CheckBox) findViewById(R.id.swimmingCheckBox2);
         CheckBox checkCycle = (CheckBox) findViewById(R.id.cycleCheckBox);
-        if(checkRun.isChecked()){
+        if (checkRun.isChecked()) {
             SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkRun, runMin, runKm);
             sportDialog.show(getFragmentManager(), "Результат");
+        } else {
+            runMin.setText("0");
+            runKm.setText("0");
 
 
         }
+
     }
 
     public void fillData() {
