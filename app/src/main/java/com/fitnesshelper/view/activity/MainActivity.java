@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.data.dao.impl.DishDAOImpl;
@@ -14,6 +15,7 @@ import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.CompositeDish;
 import com.fitnesshelper.entity.Ration;
 import com.fitnesshelper.entity.SimpleDish;
+import com.fitnesshelper.service.impl.RationServiceImpl;
 import com.fitnesshelper.view.fragments.PersonParamsDialogFragment;
 
 import java.util.Arrays;
@@ -21,18 +23,22 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+    String myWeight;
+    String myHeight;
+    String myAge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         SharedPreferences sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
-        String myAge = sharedPref.getString("myAge", null);
+        myAge = sharedPref.getString("myAge", null);
         if (myAge == null) {
             openDialog();
         } else {
-            String myWeight = sharedPref.getString("myWeight", null);
-            String myHeight = sharedPref.getString("myHeight", null);
+            myWeight = sharedPref.getString("myWeight", null);
+            myHeight = sharedPref.getString("myHeight", null);
         }
 
         final Button rationButton = (Button) findViewById(R.id.rationButton);
@@ -53,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent i = new Intent(MainActivity.this, RationActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -63,11 +70,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        calculateCal();
     }
 
     private void openDialog() {
         PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
         personParamsDialogFragment.setSharedPreferences(getSharedPreferences("mySettings", MODE_PRIVATE));
         personParamsDialogFragment.show(getSupportFragmentManager(), "dialog");
+    }
+
+    private void calculateCal() {
+        float value = 88.36f + (13.4f * Integer.parseInt(myWeight)) + (4.8f
+                * Integer.parseInt(myHeight)) - (5.7f * Integer.parseInt(myAge));
+        ((TextView) findViewById(R.id.mainRecommendKcal)).setText(String.valueOf(value));
+
+        long totalAmountOfCal = new RationServiceImpl(getApplicationContext()).getTotalAmountOfCal(new Date());
+        ((TextView) findViewById(R.id.enterPlusKcal)).setText(String.valueOf(totalAmountOfCal));
+
+        long sportAmountOfCal;
+        ((TextView) findViewById(R.id.enterMinusKcal)).setText("");
     }
 }

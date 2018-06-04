@@ -13,6 +13,7 @@ import com.fitnesshelper.data.dao.RationDAO;
 import com.fitnesshelper.data.dao.impl.RationDAOImpl;
 import com.fitnesshelper.entity.Ration;
 import com.fitnesshelper.service.impl.DishServiceImpl;
+import com.fitnesshelper.service.impl.RationServiceImpl;
 
 import java.util.Date;
 import java.util.List;
@@ -21,13 +22,13 @@ public class RationAdapter extends BaseAdapter {
     private final TextView totalAmountTextView;
     private List<Ration> rations;
     private LayoutInflater inflater;
-    private RationDAO rationDAO;
+    private RationServiceImpl rationService;
 
     public RationAdapter(Context context, TextView totalAmountTextView) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        rationDAO = new RationDAOImpl(context);
+        rationService = new RationServiceImpl(context);
 
-        this.rations = rationDAO.getByDate(new Date());
+        this.rations = rationService.getRationByDate(new Date());
         this.totalAmountTextView = totalAmountTextView;
     }
 
@@ -67,7 +68,7 @@ public class RationAdapter extends BaseAdapter {
                 if (getCount() > 1) {
                     rations.remove(ration);
                     notifyDataSetChanged();
-                    rationDAO.delete(ration.getId());
+                    rationService.removeRation(ration);
                     totalAmountTextView.setText(String.valueOf(getTotalAmountOfCal()));
                 } else {
                     Toast.makeText(v.getContext(), "It should be at least one ration",

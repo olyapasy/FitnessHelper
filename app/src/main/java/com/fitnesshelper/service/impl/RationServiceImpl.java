@@ -35,4 +35,15 @@ public class RationServiceImpl {
     public void removeRation(Ration ration) {
         rationDAO.delete(ration.getId());
     }
+
+    public long getTotalAmountOfCal(Date date) {
+        List<Ration> rationByDate = getRationByDate(date);
+        long amountOfCAl = 0;
+
+        for (Ration ration : rationByDate) {
+            amountOfCAl += DishServiceImpl.getDishCalories(ration.getListOfDish());
+        }
+
+        return amountOfCAl;
+    }
 }
