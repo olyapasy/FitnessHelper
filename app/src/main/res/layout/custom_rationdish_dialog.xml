@@ -2,20 +2,13 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="#384B5F">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <Spinner
         android:id="@+id/rationdishDialogSpinner"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="391dp"
-        android:layout_marginTop="96dp"
-        android:backgroundTint="@color/colorPink"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPink" />
 
 </android.support.constraint.ConstraintLayout>
