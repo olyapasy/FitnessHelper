@@ -61,48 +61,58 @@ public class SportActivity extends AppCompatActivity {
 
     }
 
-    public void itemClicked(View view) {
-        CheckBox checkRun = (CheckBox) findViewById(R.id.runningCheckBox);
-        CheckBox checkWorkout = (CheckBox) findViewById(R.id.workoutCheckBox);
-        CheckBox checkSwim = (CheckBox) findViewById(R.id.swimmingCheckBox2);
-        CheckBox checkCycle = (CheckBox) findViewById(R.id.cycleCheckBox);
 
+
+
+    public void itemClickedRun(View view) {
+        CheckBox checkRun = (CheckBox) findViewById(R.id.runningCheckBox);
         if (checkRun.isChecked()) {
             SportDialogFragment sportDialog = new SportDialogFragment();
             sportDialog.setcheck(checkRun, runMin, runKm);
             sportDialog.show(getFragmentManager(), "res");
-            checkRun.setChecked(false);
         } else {
             runMin.setText("0");
             runKm.setText("0");
         }
+    }
+
+    public void itemClickedWorkout(View view) {
+        CheckBox checkWorkout = (CheckBox) findViewById(R.id.workoutCheckBox);
+
         if (checkWorkout.isChecked()) {
             SportDialogFragment sportDialog = new SportDialogFragment();
             sportDialog.setcheck(checkWorkout, workoutMin, workoutKm);
             sportDialog.show(getFragmentManager(), "res");
-            checkWorkout.setChecked(false);
         } else {
             workoutMin.setText("0");
             workoutKm.setText("0");
         }
+    }
+    public void itemClickedSwim(View view) {
+        CheckBox checkSwim = (CheckBox) findViewById(R.id.swimmingCheckBox2);
+
         if (checkSwim.isChecked()) {
             SportDialogFragment sportDialog = new SportDialogFragment();
             sportDialog.setcheck(checkSwim, swimMin, swimKm);
             sportDialog.show(getFragmentManager(), "res");
-            checkSwim.setChecked(false);
         } else {
             swimMin.setText("0");
             swimKm.setText("0");
         }
+    }
+
+    public void itemClickedCycle(View view) {
+        CheckBox checkCycle = (CheckBox) findViewById(R.id.cycleCheckBox);
+
         if (checkCycle.isChecked()) {
             SportDialogFragment sportDialog = new SportDialogFragment();
             sportDialog.setcheck(checkCycle, cycleMin, cycleKm);
             sportDialog.show(getFragmentManager(), "res");
-            checkCycle.setChecked(false);
         } else {
             cycleMin.setText("0");
             cycleKm.setText("0");
         }
+
     }
 
     public void fillData() {
