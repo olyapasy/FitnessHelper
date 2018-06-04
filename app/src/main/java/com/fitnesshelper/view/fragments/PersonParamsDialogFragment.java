@@ -58,6 +58,7 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
                     editor.putString("myWeight", weightValue);
                     editor.commit();
 
+                    getFragmentManager().beginTransaction().remove(PersonParamsDialogFragment.this).commit();
                     getActivity().recreate();
                 }
             }
