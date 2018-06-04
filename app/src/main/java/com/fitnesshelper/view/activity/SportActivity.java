@@ -2,6 +2,7 @@ package com.fitnesshelper.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -65,17 +66,43 @@ public class SportActivity extends AppCompatActivity {
         CheckBox checkWorkout = (CheckBox) findViewById(R.id.workoutCheckBox);
         CheckBox checkSwim = (CheckBox) findViewById(R.id.swimmingCheckBox2);
         CheckBox checkCycle = (CheckBox) findViewById(R.id.cycleCheckBox);
+
         if (checkRun.isChecked()) {
             SportDialogFragment sportDialog = new SportDialogFragment();
             sportDialog.setcheck(checkRun, runMin, runKm);
-            sportDialog.show(getFragmentManager(), "Результат");
+            sportDialog.show(getFragmentManager(), "res");
+            checkRun.setChecked(false);
         } else {
             runMin.setText("0");
             runKm.setText("0");
-
-
         }
-
+        if (checkWorkout.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkWorkout, workoutMin, workoutKm);
+            sportDialog.show(getFragmentManager(), "res");
+            checkWorkout.setChecked(false);
+        } else {
+            workoutMin.setText("0");
+            workoutKm.setText("0");
+        }
+        if (checkSwim.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkSwim, swimMin, swimKm);
+            sportDialog.show(getFragmentManager(), "res");
+            checkSwim.setChecked(false);
+        } else {
+            swimMin.setText("0");
+            swimKm.setText("0");
+        }
+        if (checkCycle.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkCycle, cycleMin, cycleKm);
+            sportDialog.show(getFragmentManager(), "res");
+            checkCycle.setChecked(false);
+        } else {
+            cycleMin.setText("0");
+            cycleKm.setText("0");
+        }
     }
 
     public void fillData() {
