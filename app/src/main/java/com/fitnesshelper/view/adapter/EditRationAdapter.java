@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
@@ -18,8 +19,8 @@ public class EditRationAdapter extends BaseAdapter {
     private List<AbstractDish> dishes;
     private LayoutInflater inflater;
 
-    public EditRationAdapter(Ration ration, Context context) {
-        dishes = ration.getListOfDish();
+    public EditRationAdapter(List<AbstractDish> dishes, Context context) {
+        this.dishes = dishes;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -39,7 +40,7 @@ public class EditRationAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
         View view = convertView;
 
         if (view == null) {
@@ -48,17 +49,24 @@ public class EditRationAdapter extends BaseAdapter {
 
         final AbstractDish dish = (AbstractDish) getItem(position);
         ((TextView) view.findViewById(R.id.editRationDishName)).setText(dish.getName());
-        ((TextView) view.findViewById(R.id.amountOfKcalEditRation)).setText(String.valueOf(dish.getCalories()));
-        ((TextView) view.findViewById(R.id.amountOfKgEditlRation)).setText(String.valueOf("Kg here"));
+        ((TextView) view.findViewById(R.id.amountOfKcalEditRation)).setText(String.valueOf(dish.getCalories()) + " calories");
         ((ImageButton) view.findViewById(R.id.deleteEditRationItem)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dishes.remove(dish);
-                notifyDataSetChanged();
+                if (getCount() > 1) {
+                    dishes.remove(dish);
+                    notifyDataSetChanged();
+                } else {
+                    Toast.makeText(v.getContext(), "It should be at least one dish in ration",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-
         return view;
+    }
+
+    public void addDish(AbstractDish abstractDish) {
+        dishes.add(abstractDish);
     }
 }

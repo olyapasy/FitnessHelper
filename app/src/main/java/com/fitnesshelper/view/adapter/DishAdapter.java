@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fitnesshelper.entity.SimpleDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
@@ -70,8 +71,13 @@ public class DishAdapter extends BaseAdapter {
         view.findViewById(R.id.deleteDishButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dishes.remove(simpleDish);
-                notifyDataSetChanged();
+                if (dishes.size() > 1) {
+                    dishes.remove(simpleDish);
+                    notifyDataSetChanged();
+                } else {
+                    Toast.makeText(v.getContext(), "It should be at least one dish in complex dish",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

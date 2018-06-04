@@ -31,13 +31,15 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
         age = view.findViewById(R.id.ageInput);
         height = view.findViewById(R.id.heightInput);
         weight = view.findViewById(R.id.weightInput);
-
+        final Toast toast = Toast.makeText(getContext(), "Fill all fields",
+                Toast.LENGTH_SHORT);
         builder.setView(view)
                 .setTitle("Personal data")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        toast.show();
+                        showFragment();
                     }
                 }).setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
@@ -47,8 +49,6 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
                 String weightValue = weight.getText().toString();
 
                 if (ageValue.isEmpty() || heightValue.isEmpty() || weightValue.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), "Fill all fields",
-                            Toast.LENGTH_SHORT);
                     toast.show();
                     showFragment();
                 } else {
@@ -66,6 +66,7 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
 
     private void showFragment() {
         PersonParamsDialogFragment personParamsDialogFragment = new PersonParamsDialogFragment();
+        personParamsDialogFragment.setSharedPreferences(sharedPreferences);
         personParamsDialogFragment.show(getFragmentManager(), "dialog");
     }
 

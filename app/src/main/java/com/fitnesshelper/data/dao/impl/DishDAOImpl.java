@@ -25,6 +25,9 @@ public class DishDAOImpl implements DishDAO {
     private SQLiteDatabase sqLiteDatabase;
     private final String TABLE_NAME = "dish";
     private final String TABLE_REF_NAME = "dish_ref";
+    private final String SELECT_FIRST = "SELECT  * from dish WHERE min(id);";
+    private final String SELECT_DISH_FROM_RATION_REF_TABLE = "SELECT id from dish_ration where dish_id = ?";
+    private final String SELECT_DISH_FROM_DISH_REF_TABLE = "SELECT id from dish_ref where dish_to_consist_of_id = ?";
     private final String SELECT_DISH_OF_COMPOSTE_DISH = "SELECT d.*, dr.kg_amount FROM dish d," +
             " dish_ref dr where d.id = dr.dish_to_consist_of_id and dr.composite_dish_id = ?";
 
@@ -164,6 +167,48 @@ public class DishDAOImpl implements DishDAO {
         } finally {
             sqLiteDatabase.close();
         }
+    }
+
+    @Override
+    public boolean checkIdInUse(long id) {
+        sqLiteDatabase = getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_DISH_FROM_RATION_REF_TABLE,
+                new String[]{String.valueOf(id)});
+
+        try {
+            if (cursor.getCount() > 0) {
+                return true;
+            }
+            cursor = sqLiteDatabase.rawQuery(SELECT_DISH_FROM_DISH_REF_TABLE,
+                    new String[]{String.valueOf(id)});
+
+            return cursor.getCount() > 0;
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+            sqLiteDatabase.close();
+        }
+
+        return true;
+    }
+
+    @Override
+    public AbstractDish getFirst() {
+        sqLiteDatabase = getWritableDatabase();
+        AbstractDish abstractDish = null;
+
+        try (Cursor cursor = sqLiteDatabase.query(TABLE_NAME, null, null,
+                null, null, null, null, String.valueOf(1))) {
+            abstractDish = EntityConverter.convertToDish(cursor);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqLiteDatabase.close();
+        }
+
+        return abstractDish;
     }
 
     private SQLiteDatabase getWritableDatabase() {

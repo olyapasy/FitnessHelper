@@ -14,4 +14,8 @@ public interface DishDAO {
     void update(AbstractDish abstractDish);
 
     void delete(long id);
+
+    boolean checkIdInUse(long id);
+
+    AbstractDish getFirst();
 }

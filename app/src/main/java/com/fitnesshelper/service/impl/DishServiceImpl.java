@@ -7,6 +7,8 @@ import com.fitnesshelper.data.dao.impl.DishDAOImpl;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.SimpleDish;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +25,8 @@ public class DishServiceImpl {
         return dishDAO.getAll();
     }
 
-    public List<SimpleDish> getAllSimpleDish() {
-        List<SimpleDish> simpleDishes = new ArrayList<>();
+    public List<AbstractDish> getAllSimpleDish() {
+        List<AbstractDish> simpleDishes = new ArrayList<>();
         List<AbstractDish> all = getAllDish();
 
         for (AbstractDish aDish : all) {
@@ -37,7 +39,7 @@ public class DishServiceImpl {
     }
 
 
-    public List<String> getAllDishNames(List<SimpleDish> allDishes) {
+    public List<String> getAllDishNames(List<AbstractDish> allDishes) {
         List<String> simpleDishes = new ArrayList<>();
 
         for (AbstractDish aDish : allDishes) {
@@ -76,12 +78,20 @@ public class DishServiceImpl {
 
     public static long getDishCalories(List<AbstractDish> abstractDishes) {
         long calories = 0;
-
-        for (AbstractDish sDish : abstractDishes) {
-            calories += sDish.getCalories();
+        if (CollectionUtils.isNotEmpty(abstractDishes)) {
+            for (AbstractDish sDish : abstractDishes) {
+                calories += sDish.getCalories();
+            }
         }
-
         return calories;
+    }
+
+    public boolean chekIfDishIsInUse(long id) {
+        return dishDAO.checkIdInUse(id);
+    }
+
+    public AbstractDish getAnyDish() {
+        return dishDAO.getFirst();
     }
 
 }

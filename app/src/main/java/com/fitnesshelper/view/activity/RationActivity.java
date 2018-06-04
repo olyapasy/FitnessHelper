@@ -82,4 +82,11 @@ public class RationActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), RationActivity.class);
+        finish();
+        startActivity(intent);
+    }
 }

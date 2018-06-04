@@ -6,10 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.service.impl.DishServiceImpl;
-import com.fitnesshelper.R;
 
 import java.util.List;
 
@@ -55,9 +56,21 @@ public class AllDishAdapter extends BaseAdapter {
         view.findViewById(R.id.deleteDishButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dishArrayList.remove(dish);
-                notifyDataSetChanged();
-                dishService.remove(dish);
+                boolean b = dishService.chekIfDishIsInUse(dish.getId());
+                System.out.println(b);
+                if (b == false && getCount() > 1) {
+                    dishArrayList.remove(dish);
+                    notifyDataSetChanged();
+                    dishService.remove(dish);
+                } else {
+                    if (b == false) {
+                        Toast.makeText(v.getContext(), "The dish is used by ration or other dish",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(v.getContext(), "It should be at least one dish",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

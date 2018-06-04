@@ -11,14 +11,16 @@
         android:layout_width="119dp"
         android:layout_height="30dp"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/amountOfKcalEditRation"
-        android:layout_width="74dp"
+        android:layout_width="137dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
@@ -29,14 +31,6 @@
         android:layout_weight="1"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="25dp"
-        android:layout_height="35dp"
-        android:layout_weight="1"
-        android:text="kg"
-        android:textColor="@android:color/white" />
 
     <ImageButton
         android:id="@+id/deleteEditRationItem"

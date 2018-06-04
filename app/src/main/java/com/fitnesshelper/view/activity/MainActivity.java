@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         SharedPreferences sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
         String myAge = sharedPref.getString("myAge", null);
         if (myAge == null) {

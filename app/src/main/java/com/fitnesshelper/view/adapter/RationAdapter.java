@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.data.dao.RationDAO;
 import com.fitnesshelper.data.dao.impl.RationDAOImpl;
 import com.fitnesshelper.entity.Ration;
 import com.fitnesshelper.service.impl.DishServiceImpl;
-import com.fitnesshelper.R;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ public class RationAdapter extends BaseAdapter {
     public RationAdapter(Context context, TextView totalAmountTextView) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rationDAO = new RationDAOImpl(context);
+
         this.rations = rationDAO.getByDate(new Date());
         this.totalAmountTextView = totalAmountTextView;
     }
@@ -36,6 +38,7 @@ public class RationAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+
         return rations.get(position);
     }
 
@@ -45,9 +48,8 @@ public class RationAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
         View view = convertView;
-
         if (view == null) {
             view = inflater.inflate(R.layout.ration_list_item, parent, false);
         }
@@ -62,10 +64,15 @@ public class RationAdapter extends BaseAdapter {
         view.findViewById(R.id.deleteRationButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rations.remove(ration);
-                notifyDataSetChanged();
-                rationDAO.delete(ration.getId());
-                totalAmountTextView.setText(String.valueOf(getTotalAmountOfCal()));
+                if (getCount() > 1) {
+                    rations.remove(ration);
+                    notifyDataSetChanged();
+                    rationDAO.delete(ration.getId());
+                    totalAmountTextView.setText(String.valueOf(getTotalAmountOfCal()));
+                } else {
+                    Toast.makeText(v.getContext(), "It should be at least one ration",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
