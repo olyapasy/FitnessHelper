@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.Ration;
+import com.fitnesshelper.service.impl.RationServiceImpl;
 import com.fitnesshelper.view.adapter.RationAdapter;
 import com.fitnesshelper.view.fragments.RationFragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RationActivity extends AppCompatActivity {
     ArrayList<Ration> rations = new ArrayList<>();
@@ -66,7 +68,7 @@ public class RationActivity extends AppCompatActivity {
 
         final RationAdapter rationAdapter = new RationAdapter(getApplicationContext(), totalAmountTextView);
         rationList.setAdapter(rationAdapter);
-        long totalAmountOfCal = rationAdapter.getTotalAmountOfCal();
+        long totalAmountOfCal = new RationServiceImpl(getApplicationContext()).getTotalAmountOfCal(new Date());
 
         totalAmountTextView.setText(String.valueOf(totalAmountOfCal));
         rationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,5 +83,13 @@ public class RationActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, rationFragment).commit();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
