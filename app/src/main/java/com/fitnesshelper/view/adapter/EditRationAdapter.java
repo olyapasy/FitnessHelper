@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.Ration;
-import com.fitnesshelper.R;
 
 import java.util.List;
 
@@ -45,10 +46,18 @@ public class EditRationAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.edit_ration_list_item, parent, false);
         }
 
-        AbstractDish dish = (AbstractDish) getItem(position);
+        final AbstractDish dish = (AbstractDish) getItem(position);
         ((TextView) view.findViewById(R.id.editRationDishName)).setText(dish.getName());
         ((TextView) view.findViewById(R.id.amountOfKcalEditRation)).setText(String.valueOf(dish.getCalories()));
         ((TextView) view.findViewById(R.id.amountOfKgEditlRation)).setText(String.valueOf("Kg here"));
+        ((ImageButton) view.findViewById(R.id.deleteEditRationItem)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dishes.remove(dish);
+                notifyDataSetChanged();
+            }
+        });
+
 
         return view;
     }

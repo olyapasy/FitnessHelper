@@ -7,13 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.fitnesshelper.R;
 import com.fitnesshelper.data.dao.impl.DishDAOImpl;
 import com.fitnesshelper.data.dao.impl.RationDAOImpl;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.CompositeDish;
 import com.fitnesshelper.entity.Ration;
 import com.fitnesshelper.entity.SimpleDish;
-import com.fitnesshelper.R;
 import com.fitnesshelper.view.fragments.PersonParamsDialogFragment;
 
 import java.util.Arrays;
@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
             String myWeight = sharedPref.getString("myWeight", null);
             String myHeight = sharedPref.getString("myHeight", null);
         }
-
-        System.out.println(sharedPref.getString("myAge", null));
-        System.out.println(sharedPref.getString("myWeight", null));
-        System.out.println(sharedPref.getString("myHeight", null));
 
         final Button rationButton = (Button) findViewById(R.id.rationButton);
         final Button sportButton = (Button) findViewById(R.id.sportButton);

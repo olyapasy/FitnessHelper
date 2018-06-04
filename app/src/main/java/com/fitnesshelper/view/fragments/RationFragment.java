@@ -7,16 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.fitnesshelper.data.dao.RationDAO;
-import com.fitnesshelper.data.dao.impl.RationDAOImpl;
+import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
 import com.fitnesshelper.entity.Ration;
 import com.fitnesshelper.entity.SimpleDish;
+import com.fitnesshelper.service.impl.RationServiceImpl;
 import com.fitnesshelper.view.adapter.EditRationAdapter;
-import com.fitnesshelper.R;
 
 import java.util.Collections;
 import java.util.Date;
@@ -25,7 +25,7 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  */
 public class RationFragment extends Fragment {
-    RationDAO rationDAO;
+    RationServiceImpl rationService;
 
     public RationFragment() {
         // Required empty public constructor
@@ -35,7 +35,7 @@ public class RationFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rationDAO = new RationDAOImpl(getContext());
+        rationService = new RationServiceImpl(getContext());
 
         View view = inflater.inflate(R.layout.fragment_ration_edit, container, false);
         ListView editRations = (ListView) view.findViewById(R.id.rationDishes);
@@ -44,26 +44,40 @@ public class RationFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             boolean create = bundle.getBoolean("create");
-
+            ImageButton addDishToRationBut = view.findViewById(R.id.addDishToRationBut);
+            final EditText nameEditRation = (EditText) view.findViewById(R.id.rationEditName);
 
             if (create) {
                 TextView viewById = view.findViewById(R.id.rationFragmentTitle);
                 viewById.setText("Create Ration");
-                Ration ration = new Ration(0, "new ration", new Date());
+                final Ration ration = new Ration(0, "new ration", new Date());
                 ration.setListOfDish(Collections.<AbstractDish>singletonList(new SimpleDish(0, "Dish", 100, new Date())));
-
-
                 adapter = new EditRationAdapter(ration, getActivity());
+
+                addDishToRationBut.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ration.setName(nameEditRation.getText().toString());
+//                        rationService.createRation(ration);
+                    }
+                });
 
             } else {
                 long id = bundle.getLong("id");
 
                 TextView viewById = view.findViewById(R.id.rationFragmentTitle);
                 viewById.setText("Edit Ration");
+                final Ration rationById = rationService.getRationById(id);
 
-                final EditText nameEditRation = (EditText) view.findViewById(R.id.rationEditName);
+                adapter = new EditRationAdapter(rationById, getActivity());
 
-                adapter = new EditRationAdapter(rationDAO.getById(id), getActivity());
+                addDishToRationBut.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rationById.setName(nameEditRation.getText().toString());
+//                        rationService.updateRation(rationById);
+                    }
+                });
 
             }
 
