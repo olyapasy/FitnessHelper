@@ -10,8 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.SimpleDish;
@@ -28,15 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private String myAge;
     private SharedPreferences sharedPref;
     private ActionBar actionBar;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (getSupportActionBar() != null) {
             actionBar = getSupportActionBar();
         }
-
+        progressBar = findViewById(R.id.progressBar);
         sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
         myAge = sharedPref.getString("myAge", null);
         if (myAge == null) {
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         long value = (long) (88.36f + (13.4f * Integer.parseInt(myWeight)) + (4.8f
                 * Integer.parseInt(myHeight)) - (5.7f * Integer.parseInt(myAge)));
         ((TextView) findViewById(R.id.mainRecommendKcal)).setText(String.valueOf(value));
-
+        progressBar.setMax((int) value);
         long totalAmountOfCal = new RationServiceImpl(getApplicationContext())
                 .getTotalAmountOfCal(new Date());
         ((TextView) findViewById(R.id.enterPlusKcal)).setText(String.valueOf(totalAmountOfCal));
@@ -89,17 +91,19 @@ public class MainActivity extends AppCompatActivity {
         long sportAmountOfCal = new SportServiceImpl(getApplicationContext())
                 .calculateCalories(new Date());
         ((TextView) findViewById(R.id.enterMinusKcal)).setText(String.valueOf(sportAmountOfCal));
+        progressBar.setProgress((int) (totalAmountOfCal - sportAmountOfCal));
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mainmenu,menu);
+        inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.edit:
                 openDialog();
 
