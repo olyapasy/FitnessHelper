@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.Sport;
 import com.fitnesshelper.entity.SportType;
+import com.fitnesshelper.service.SportService;
 import com.fitnesshelper.service.impl.SportServiceImpl;
 import com.fitnesshelper.view.fragments.SportDialogFragment;
 
@@ -23,7 +24,7 @@ public class SportActivity extends AppCompatActivity {
     private TextView valueSwim;
     private TextView valueWork;
     private TextView valueCycle;
-    private SportServiceImpl sportService;
+    private SportService sportService;
     private CheckBox checkRun;
     private CheckBox checkWorkout;
     private CheckBox checkSwim;

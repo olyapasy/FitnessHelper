@@ -31,6 +31,17 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
         age = view.findViewById(R.id.ageInput);
         height = view.findViewById(R.id.heightInput);
         weight = view.findViewById(R.id.weightInput);
+
+        final String ageVal = sharedPreferences.getString("myAge", null);
+        String heightVal = sharedPreferences.getString("myHeight", null);
+        String weightVal = sharedPreferences.getString("myWeight", null);
+
+        if (ageVal != null) {
+            age.setText(ageVal);
+            height.setText(heightVal);
+            weight.setText(weightVal);
+        }
+
         final Toast toast = Toast.makeText(getContext(), "Fill all fields",
                 Toast.LENGTH_SHORT);
         builder.setView(view)
@@ -38,8 +49,12 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        toast.show();
-                        showFragment();
+                        if (ageVal != null) {
+
+                        } else {
+                            toast.show();
+                            showFragment();
+                        }
                     }
                 }).setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override

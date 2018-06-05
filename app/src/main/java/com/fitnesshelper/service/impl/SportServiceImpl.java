@@ -7,6 +7,7 @@ import com.fitnesshelper.data.dao.SportDAO;
 import com.fitnesshelper.data.dao.impl.SportDAOImpl;
 import com.fitnesshelper.entity.Sport;
 import com.fitnesshelper.entity.SportType;
+import com.fitnesshelper.service.SportService;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class SportServiceImpl {
+public class SportServiceImpl implements SportService {
     private SportDAO sportDAO;
     private SharedPreferences mySettings;
 

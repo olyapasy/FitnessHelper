@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.Sport;
 import com.fitnesshelper.entity.SportType;
+import com.fitnesshelper.service.SportService;
 import com.fitnesshelper.service.impl.SportServiceImpl;
 
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class SportDialogFragment extends DialogFragment {
         );
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        final SportServiceImpl sportService = new SportServiceImpl(getActivity().getApplicationContext());
+        final SportService sportService = new SportServiceImpl(getActivity().getApplicationContext());
 
         builder.setView(view)
                 .setTitle("Enter values")
