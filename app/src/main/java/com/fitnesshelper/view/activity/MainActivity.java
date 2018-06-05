@@ -3,10 +3,15 @@ package com.fitnesshelper.view.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.SimpleDish;
@@ -22,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
     private String myHeight;
     private String myAge;
     private SharedPreferences sharedPref;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (getSupportActionBar() != null) {
+            actionBar = getSupportActionBar();
+        }
 
         sharedPref = getSharedPreferences("mySettings", MODE_PRIVATE);
         myAge = sharedPref.getString("myAge", null);
@@ -81,4 +90,22 @@ public class MainActivity extends AppCompatActivity {
                 .calculateCalories(new Date());
         ((TextView) findViewById(R.id.enterMinusKcal)).setText(String.valueOf(sportAmountOfCal));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mainmenu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.edit:
+                openDialog();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+
+
