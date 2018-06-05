@@ -1,6 +1,7 @@
 package com.fitnesshelper.service.impl;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.fitnesshelper.data.dao.SportDAO;
 import com.fitnesshelper.data.dao.impl.SportDAOImpl;
@@ -12,10 +13,14 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class SportServiceImpl {
     private SportDAO sportDAO;
+    private SharedPreferences mySettings;
 
     public SportServiceImpl(Context context) {
+        mySettings = context.getSharedPreferences("mySettings", MODE_PRIVATE);
         sportDAO = new SportDAOImpl(context);
     }
 
@@ -48,5 +53,22 @@ public class SportServiceImpl {
         long value = 1;
 
         return value;
+    }
+
+    public long calculateCalories(Date date) {
+        List<Sport> sportsByDate = getSportsByDate(date);
+        long cal = 0;
+
+        if (CollectionUtils.isNotEmpty(sportsByDate)) {
+            String myWeight = mySettings.getString("myWeight", "0");
+            long weight = Long.parseLong(myWeight);
+
+            for (Sport sport : sportsByDate) {
+//                if () {
+//                    cal += weight * sport.getMeasureValue();
+//                }
+            }
+        }
+        return cal;
     }
 }
