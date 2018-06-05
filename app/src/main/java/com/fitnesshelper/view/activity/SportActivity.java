@@ -1,5 +1,6 @@
 package com.fitnesshelper.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,14 +24,15 @@ public class SportActivity extends AppCompatActivity {
     private TextView valueWork;
     private TextView valueCycle;
     private SportServiceImpl sportService;
-    CheckBox checkRun;
-    CheckBox checkWorkout;
-    CheckBox checkSwim;
-    CheckBox checkCycle;
+    private CheckBox checkRun;
+    private CheckBox checkWorkout;
+    private CheckBox checkSwim;
+    private CheckBox checkCycle;
     private TextView measureWork;
     private TextView measureRun;
     private TextView measureCycle;
     private TextView measureSwim;
+    private TextView caloriesValue;
 
 
     @Override
@@ -53,9 +55,60 @@ public class SportActivity extends AppCompatActivity {
         measureWork = (TextView) findViewById(R.id.measureWork);
         measureSwim = (TextView) findViewById(R.id.measureSwim);
         measureCycle = (TextView) findViewById(R.id.measureCycle);
+        caloriesValue = findViewById(R.id.totalAmountSport);
 
         List<Sport> sportsByDate = sportService.getSportsByDate(new Date());
+        calculateActivity(sportsByDate);
 
+        long calculateCalories = sportService.calculateCalories(new Date());
+        caloriesValue.setText(String.valueOf(calculateCalories));
+    }
+
+    public void itemClickedRun(View view) {
+        if (checkRun.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkRun, SportType.Existed.RUNNING);
+            sportDialog.show(getFragmentManager(), "res");
+        } else {
+            sportService.removeSportByType(SportType.Existed.RUNNING);
+            recreate();
+        }
+    }
+
+    public void itemClickedWorkout(View view) {
+        if (checkWorkout.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkWorkout, SportType.Existed.WORKOUT);
+            sportDialog.show(getFragmentManager(), "res");
+        } else {
+            sportService.removeSportByType(SportType.Existed.WORKOUT);
+            recreate();
+        }
+    }
+
+    public void itemClickedSwim(View view) {
+        if (checkSwim.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkSwim, SportType.Existed.SWIMMING);
+            sportDialog.show(getFragmentManager(), "res");
+        } else {
+            sportService.removeSportByType(SportType.Existed.SWIMMING);
+            recreate();
+        }
+    }
+
+    public void itemClickedCycle(View view) {
+        if (checkCycle.isChecked()) {
+            SportDialogFragment sportDialog = new SportDialogFragment();
+            sportDialog.setcheck(checkCycle, SportType.Existed.CYCLING);
+            sportDialog.show(getFragmentManager(), "res");
+        } else {
+            sportService.removeSportByType(SportType.Existed.CYCLING);
+            recreate();
+        }
+    }
+
+    private void calculateActivity(List<Sport> sportsByDate) {
         if (CollectionUtils.isNotEmpty(sportsByDate)) {
             for (Sport sport : sportsByDate) {
                 if (sport.getSportType().getId() == SportType.Existed.RUNNING.getId()) {
@@ -77,51 +130,14 @@ public class SportActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
-    public void itemClickedRun(View view) {
-        if (checkRun.isChecked()) {
-            SportDialogFragment sportDialog = new SportDialogFragment();
-            sportDialog.setcheck(checkRun, SportType.Existed.RUNNING);
-            sportDialog.show(getFragmentManager(), "res");
-        } else {
-            sportService.removeSportByType(SportType.Existed.RUNNING);
-            recreate();
-        }
-    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-    public void itemClickedWorkout(View view) {
-        if (checkWorkout.isChecked()) {
-            SportDialogFragment sportDialog = new SportDialogFragment();
-            sportDialog.setcheck(checkWorkout, SportType.Existed.WORKOUT);
-            sportDialog.show(getFragmentManager(), "res");
-        } else {
-            sportService.removeSportByType(SportType.Existed.RUNNING);
-            recreate();
-        }
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
-
-    public void itemClickedSwim(View view) {
-        if (checkSwim.isChecked()) {
-            SportDialogFragment sportDialog = new SportDialogFragment();
-            sportDialog.setcheck(checkSwim, SportType.Existed.SWIMMING);
-            sportDialog.show(getFragmentManager(), "res");
-        } else {
-            sportService.removeSportByType(SportType.Existed.RUNNING);
-            recreate();
-        }
-    }
-
-    public void itemClickedCycle(View view) {
-        if (checkCycle.isChecked()) {
-            SportDialogFragment sportDialog = new SportDialogFragment();
-            sportDialog.setcheck(checkCycle, SportType.Existed.CYCLING);
-            sportDialog.show(getFragmentManager(), "res");
-        } else {
-            sportService.removeSportByType(SportType.Existed.RUNNING);
-            recreate();
-        }
-    }
-
 }

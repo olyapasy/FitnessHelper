@@ -96,7 +96,7 @@ public class SimpleDishFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             dishService.create(new SimpleDish(0, dishName,
-                                    Integer.parseInt(amountKcal), new Date()));
+                                    (long)Float.parseFloat(amountKcal), new Date()));
                             getActivity().onBackPressed();
                         }
                     }
@@ -119,7 +119,7 @@ public class SimpleDishFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             simpleDish.setName(dishName);
-                            simpleDish.setCalories(Integer.parseInt(amountKcal));
+                            simpleDish.setCalories((long) Float.parseFloat(amountKcal));
                             dishService.update(simpleDish);
 
                             getActivity().finish();

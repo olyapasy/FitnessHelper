@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitnesshelper.R;
@@ -21,6 +20,7 @@ import com.fitnesshelper.service.impl.SportServiceImpl;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class SportDialogFragment extends DialogFragment {
     private EditText value;
@@ -36,9 +36,15 @@ public class SportDialogFragment extends DialogFragment {
         final View view = inflater.inflate(R.layout.sport_dialog, null);
         value = view.findViewById(R.id.sportInputValue);
         spinner = view.findViewById(R.id.sportInputSpiner);
+        List<String> spinnerStrings;
+        if (sportType.getId() == 3) {
+            spinnerStrings = Arrays.asList(Sport.Measure.MINUTES.getName());
+        } else {
+            spinnerStrings = Arrays.asList(Sport.Measure.METERS.getName(), Sport.Measure.MINUTES.getName());
+        }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity()
-                .getApplicationContext(), android.R.layout.simple_expandable_list_item_1,
-                Arrays.asList(Sport.Measure.METERS.getName(), Sport.Measure.MINUTES.getName()));
+                .getApplicationContext(), android.R.layout.simple_expandable_list_item_1, spinnerStrings
+        );
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         final SportServiceImpl sportService = new SportServiceImpl(getActivity().getApplicationContext());
@@ -57,15 +63,16 @@ public class SportDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String sportValue = value.getText().toString();
 
-                if (sportValue.isEmpty()) {
+                if (sportValue.isEmpty() || Integer.parseInt(sportValue) == 0) {
                     Toast toast = Toast.makeText(getActivity(), "Fill the value",
                             Toast.LENGTH_SHORT);
                     toast.show();
                     check.setChecked(false);
                 } else {
                     sport = new Sport(0, new SportType(sportType), spinner.getSelectedItem().toString(),
-                            Integer.parseInt(sportValue), new Date());
+                            (int) Float.parseFloat(sportValue), new Date());
                     sportService.createSport(sport);
+                    getFragmentManager().beginTransaction().remove(SportDialogFragment.this).commit();
                     getActivity().recreate();
                 }
             }

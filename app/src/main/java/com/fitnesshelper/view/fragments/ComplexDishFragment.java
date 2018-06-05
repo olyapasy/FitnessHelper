@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.CompositeDish;
@@ -56,21 +57,27 @@ public class ComplexDishFragment extends Fragment {
             final int activity = extras.getInt("activity");
 
             if (createAction) {
-                simpleDishHashMap.put(new SimpleDish(0, "simple dish", 0, new Date()), 0.0f);
+                simpleDishHashMap.put((SimpleDish) dishService.getAnyDish(), 0.5f);
 
                 ImageButton addCompositeDish = rootView.findViewById(R.id.doneAddDishButton3);
                 addCompositeDish.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dishAdapter.notifyDataSetChanged();
+
                         String dishNameComplex = inputDishName.getText().toString();
 
 
-                        dishService.create(new CompositeDish(0, dishNameComplex,
-                                dishService.getCompositeDishCalories(simpleDishHashMap),
-                                new Date(), simpleDishHashMap));
-                        getActivity().finish();
-                        startActivity(formIntent(activity));
+                        if (dishNameComplex.isEmpty()) {
+                            Toast.makeText(getActivity(), "Dish should have the name!",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            dishService.create(new CompositeDish(0, dishNameComplex,
+                                    dishService.getCompositeDishCalories(simpleDishHashMap),
+                                    new Date(), simpleDishHashMap));
+                            getActivity().finish();
+                            startActivity(formIntent(activity));
+                        }
                     }
                 });
 
@@ -93,14 +100,19 @@ public class ComplexDishFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         String dishNameComplex = inputDishName.getText().toString();
-                        compositeDish.setSimpleDishMap(simpleDishHashMap);
-                        compositeDish.setName(dishNameComplex);
-                        compositeDish.setCalories(dishService
-                                .getCompositeDishCalories(simpleDishHashMap));
-                        dishService.update(compositeDish);
+                        if (dishNameComplex.isEmpty()) {
+                            Toast.makeText(getActivity(), "Dish should have the name!",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            compositeDish.setSimpleDishMap(simpleDishHashMap);
+                            compositeDish.setName(dishNameComplex);
+                            compositeDish.setCalories(dishService
+                                    .getCompositeDishCalories(simpleDishHashMap));
+                            dishService.update(compositeDish);
 
-                        getActivity().finish();
-                        startActivity(formIntent(activity));
+                            getActivity().finish();
+                            startActivity(formIntent(activity));
+                        }
                     }
                 });
             }

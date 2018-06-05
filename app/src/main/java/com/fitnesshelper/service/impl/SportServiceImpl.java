@@ -48,13 +48,6 @@ public class SportServiceImpl {
         }
     }
 
-    public long getSportCalories(Date date) {
-        List<Sport> sportsByDate = getSportsByDate(new Date());
-        long value = 1;
-
-        return value;
-    }
-
     public long calculateCalories(Date date) {
         List<Sport> sportsByDate = getSportsByDate(date);
         long cal = 0;
@@ -64,11 +57,34 @@ public class SportServiceImpl {
             long weight = Long.parseLong(myWeight);
 
             for (Sport sport : sportsByDate) {
-//                if () {
-//                    cal += weight * sport.getMeasureValue();
-//                }
+                if (sport.getSportType().getId() == 1) {
+                    if (sport.getMeasureType().equals("Meters")) {
+                        cal += weight * sport.getMeasureValue() / 1000;
+                    } else {
+                        cal += 4.4f * sport.getMeasureValue();
+                    }
+                } else if (sport.getSportType().getId() == 3) {
+                    if (sport.getMeasureType().equals("Meters")) {
+                        cal += 3 * weight * sport.getMeasureValue() / 1000;
+                    } else {
+                        cal += 7f * weight * sport.getMeasureValue() / 60;
+                    }
+                } else if (sport.getSportType().getId() == 2) {
+                    if (sport.getMeasureType().equals("Meters")) {
+                        cal += sport.getMeasureValue() * 3;
+                    } else {
+                        cal += 4 * weight * sport.getMeasureValue() / 60;
+                    }
+                } else if (sport.getSportType().getId() == 4) {
+                    if (sport.getMeasureType().equals("Meters")) {
+                        cal += (5 / 15f) * weight * (sport.getMeasureValue() / 1000);
+                    } else {
+                        cal += 5 * weight * sport.getMeasureValue() / 60;
+                    }
+                }
             }
         }
+
         return cal;
     }
 }

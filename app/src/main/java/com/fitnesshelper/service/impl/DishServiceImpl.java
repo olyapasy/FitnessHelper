@@ -71,7 +71,7 @@ public class DishServiceImpl implements DishService {
         long calories = 0;
 
         for (SimpleDish sDish : simpleDishes) {
-            calories += (sDish.getCalories() / 100) * simpleDishMap.get(sDish);
+            calories += (sDish.getCalories() / 100) * simpleDishMap.get(sDish)*1000;
         }
 
         return calories;

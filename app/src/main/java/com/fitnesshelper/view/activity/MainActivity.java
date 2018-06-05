@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent i = new Intent(MainActivity.this, SportActivity.class);
                     startActivity(i);
+                    finish();
                 }
             });
-
             calculateCal();
         }
     }
@@ -73,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
                 * Integer.parseInt(myHeight)) - (5.7f * Integer.parseInt(myAge)));
         ((TextView) findViewById(R.id.mainRecommendKcal)).setText(String.valueOf(value));
 
-        long totalAmountOfCal = new RationServiceImpl(getApplicationContext()).getTotalAmountOfCal(new Date());
+        long totalAmountOfCal = new RationServiceImpl(getApplicationContext())
+                .getTotalAmountOfCal(new Date());
         ((TextView) findViewById(R.id.enterPlusKcal)).setText(String.valueOf(totalAmountOfCal));
 
-        long sportAmountOfCal = new SportServiceImpl(getApplicationContext()).getSportCalories(new Date());
+        long sportAmountOfCal = new SportServiceImpl(getApplicationContext())
+                .calculateCalories(new Date());
         ((TextView) findViewById(R.id.enterMinusKcal)).setText(String.valueOf(sportAmountOfCal));
     }
 }

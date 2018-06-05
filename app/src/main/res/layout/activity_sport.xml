@@ -145,22 +145,24 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="84dp"
-        android:layout_height="131dp"
+        android:layout_height="132dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/totalTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout8"
-        app:layout_constraintTop_toBottomOf="@+id/rationTitleText">
+        app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
+        app:layout_constraintVertical_bias="0.535">
 
         <TextView
             android:id="@+id/measureRun"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginBottom="15dp"
-            android:text="min"
+            android:text="Minutes/Meters"
             android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/measureWork"
@@ -168,9 +170,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="2dp"
-            android:text="min"
+            android:text="Minutes"
             android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/measureSwim"
@@ -178,18 +181,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:paddingTop="7dp"
-            android:text="min"
+            android:text="Minutes/Meters"
             android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/measureCycle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginTop="5dp"
-            android:text="min"
+            android:text="Minutes/Meters"
             android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
     </LinearLayout>
 
     <LinearLayout
