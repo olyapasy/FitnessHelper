@@ -49,9 +49,7 @@ public class PersonParamsDialogFragment extends AppCompatDialogFragment {
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ageVal != null) {
-
-                        } else {
+                        if (ageVal == null) {
                             toast.show();
                             showFragment();
                         }
