@@ -28,9 +28,6 @@ public class RationActivity extends AppCompatActivity {
         ListView rationList = (ListView) findViewById(R.id.rationList);
         TextView totalAmountTextView = findViewById(R.id.totalAmountValue);
 
-        final Button back = (Button) findViewById(R.id.backButton);
-        //сделать кнопку назад
-
         final ImageButton addDish = (ImageButton) findViewById(R.id.addDishButton);
         final ImageButton addRation = (ImageButton) findViewById(R.id.addRationButton);
         final ImageButton allDishButton = (ImageButton) findViewById(R.id.allDishBut);

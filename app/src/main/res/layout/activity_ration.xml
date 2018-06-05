@@ -92,18 +92,6 @@
         app:layout_constraintTop_toBottomOf="@+id/rationTitleText"
         app:layout_constraintVertical_bias="0.339" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="66dp"
-        android:layout_height="36dp"
-        android:background="@android:color/transparent"
-        android:text="Back"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/rationTitleText"
-        app:layout_constraintHorizontal_bias="0.202"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/backgroundCalendar"
         android:layout_width="75dp"
@@ -122,10 +110,10 @@
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintHorizontal_bias="0.87"
         app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
         app:layout_constraintTop_toBottomOf="@+id/totalTitle"
-        app:layout_constraintVertical_bias="0.903"
+        app:layout_constraintVertical_bias="0.746"
         app:srcCompat="@drawable/circlebackrationmain" />
 
     <ImageButton
@@ -135,10 +123,10 @@
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="0.662"
         app:layout_constraintStart_toEndOf="@+id/addRationButton"
         app:layout_constraintTop_toBottomOf="@+id/totalTitle"
-        app:layout_constraintVertical_bias="0.903"
+        app:layout_constraintVertical_bias="0.746"
         app:srcCompat="@drawable/ic_restaurant_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 
@@ -149,10 +137,10 @@
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/backgroundAddDish"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
         app:layout_constraintTop_toBottomOf="@+id/totalCounter"
-        app:layout_constraintVertical_bias="0.666"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_add_circle_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 
@@ -161,13 +149,13 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@android:color/transparent"
+        android:src="@drawable/ic_restaurant_menu_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/backgroundCalendar"
         app:layout_constraintEnd_toStartOf="@+id/backgroundCalendar"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toEndOf="@+id/backgroundCalendar"
         app:layout_constraintTop_toBottomOf="@+id/backgroundCalendar"
-        app:layout_constraintVertical_bias="0.511"
-        app:srcCompat="@drawable/ic_restaurant_menu_black_24dp" />
+        app:layout_constraintVertical_bias="0.511" />
 
     <ListView
         android:id="@+id/rationList"
@@ -201,6 +189,11 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foregroundGravity="center|fill|clip_vertical|clip_horizontal" />
+        android:foregroundGravity="center|fill|clip_vertical|clip_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
