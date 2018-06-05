@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fitnesshelper.R;
 import com.fitnesshelper.entity.AbstractDish;
@@ -59,8 +60,13 @@ public class ComplexDishElementDialogFragment extends AppCompatDialogFragment {
                         simpleDish = (SimpleDish) sDish;
                     }
                 }
-                fromAdapter.put(simpleDish, Float.parseFloat(amount));
-                dishAdapter.notifyDataSetChanged();
+                if (amount.isEmpty() || amount.equals("0")){
+                    Toast.makeText(getActivity(), "Fill amount of kg!",
+                            Toast.LENGTH_SHORT).show();
+                }else {
+                    fromAdapter.put(simpleDish, Float.parseFloat(amount));
+                    dishAdapter.notifyDataSetChanged();
+                }
             }
         });
 
